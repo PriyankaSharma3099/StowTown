@@ -1,4 +1,8 @@
-﻿namespace StowTown
+﻿using Microsoft.Maui.Controls;
+using StowTown;
+using System.Diagnostics;
+
+namespace StowTown
 {
     public partial class App : Application
     {
@@ -30,6 +34,34 @@
 
         }
 
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            Window window = base.CreateWindow(activationState);
+
+            window.Activated += OnWindowActivated;
+            // Optionally, you can also subscribe to Deactivated if needed for logging or other logic
+            // window.Deactivated += OnWindowDeactivated;
+
+            return window;
+        }
+
+        private void OnWindowActivated(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Window Activated event fired.");
+            if (Application.Current?.MainPage is AppShell appShell)
+            {
+                appShell.RefreshAllFlyoutTitles();
+            }
+            else
+            {
+                Debug.WriteLine("AppShell instance not found on MainPage for refreshing titles.");
+            }
+        }
+
+        // Optional: Handler for Deactivated event if you added it
+        // private void OnWindowDeactivated(object sender, EventArgs e)
+        // {
+        //     Debug.WriteLine("Window Deactivated event fired.");
+        // }
     }
 }
-    
