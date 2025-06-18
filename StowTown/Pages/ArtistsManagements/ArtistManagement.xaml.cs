@@ -54,9 +54,18 @@ public partial class ArtistManagement : ContentPage
     }
     public void LoadData()
     {
-        try
+        if (artistLoader != null) // Check if loader exists
         {
-            using (var context = new StowTownDbContext())
+            artistLoader.IsVisible = true;
+            artistLoader.IsRunning = true;
+        }
+
+        try // Outer try for the finally block
+        {
+            // Existing try-catch block for database operations
+            try
+            {
+                using (var context = new StowTownDbContext())
             {
                 var artistList = context.ArtistGroups
                     .Where(a => a.IsDeleted != true )
@@ -103,9 +112,18 @@ public partial class ArtistManagement : ContentPage
                 LoadCurrentPage();
             }
         }
-        catch (Exception ex)
+            catch (Exception ex)
+            {
+                DisplayAlert("Error", ex.Message, "OK");
+            }
+        }
+        finally
         {
-            DisplayAlert("Error", ex.Message, "OK");
+            if (artistLoader != null) // Check if loader exists
+            {
+                artistLoader.IsVisible = false;
+                artistLoader.IsRunning = false;
+            }
         }
     }
 
