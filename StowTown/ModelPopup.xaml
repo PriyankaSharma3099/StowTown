@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.ModelPopup"
+              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="ModelPopup">
+    <VerticalStackLayout>
+        <VerticalStackLayout Padding="20" Spacing="10">
+            <Label Text="Go to internal content page?" />
+            <Button Text="Yes" Clicked="OnYesClicked"/>
+            <Button Text="Cancel" Clicked="OnCancelClicked"/>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>-->
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="StowTown.ModelPopup"
+     CanBeDismissedByTappingOutsideOfPopup="False">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+        <Label Text="Go to internal content page?" />
+        <Button Text="Yes" Clicked="OnYesClicked"/>
+        <Button Text="Cancel" Clicked="OnCancelClicked"/>
+    </VerticalStackLayout>
+</toolkit:Popup>

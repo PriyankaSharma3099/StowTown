@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             xmlns:sfgrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
+             x:Class="StowTown.Pages.Reports.Graph"
+             Title="" BackgroundColor="#E5EFEE">
+
+    <ScrollView  VerticalScrollBarVisibility="Always">
+    <VerticalStackLayout Padding="10" >
+
+        <!-- Title -->
+        <Label Text="Reports" FontSize="26" FontAttributes="Bold"
+               HorizontalOptions="Start" Margin="0,10,0,0" Padding="0,10,0,0"/>
+
+            <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always">
+            <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto,Auto,Auto"
+      RowDefinitions="Auto, Auto, Auto, Auto"
+      Padding="10" ColumnSpacing="10" HorizontalOptions="FillAndExpand" Margin="0,20,0,0">
+
+                <VerticalStackLayout Grid.Column="0">
+                    <Label Text="Start Date *" FontAttributes="Bold" />
+                    <DatePicker x:Name="StartDatePicker" WidthRequest="250" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="End Date *" FontAttributes="Bold" />
+                    <DatePicker x:Name="EndDatePicker" WidthRequest="250" />
+                </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="2">
+                        <Label  Text="Filter Type *" FontAttributes="Bold" />
+                        <Picker x:Name="SelectDataTypePicker" WidthRequest="250" SelectedIndexChanged="OnSelectDataTypeChanged" SelectedIndex="0">
+                            <Picker.Items>
+                                <x:String>Radio Station</x:String>
+                                <x:String>Songs</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="3">
+                        <Label x:Name="PickerLabel"  Text="Radio Station *" FontAttributes="Bold" />
+                    <!--<Picker x:Name="RadioStationPicker" WidthRequest="200" />-->
+                    <Picker x:Name="RadioStationPicker" WidthRequest="250" ItemDisplayBinding="{Binding Name}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="4">
+                    <Label Text="View Type *" FontAttributes="Bold" />
+                    <Picker x:Name="ViewTypePicker" WidthRequest="250" SelectedIndexChanged="OnViewTypeChanged" SelectedIndex="0">
+                        <Picker.Items>
+                            <x:String>BarChart View</x:String>
+                            <x:String>Grid View</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="5" HorizontalOptions="End" Margin="50,0,50,0">
+                    <Label Text="Action" FontAttributes="Bold" />
+                        <Button Text="View" BackgroundColor="#63CF6C" WidthRequest="120"   HeightRequest="40" HorizontalOptions="End" Clicked="ShowChart" />
+                </VerticalStackLayout>
+            </Grid>
+
+        </ScrollView>
+        <Grid RowDefinitions="Auto, Auto, Auto,*">
+
+            <!-- Y-Axis Label -->
+            <Label Text=""
+           Rotation="-90"
+           VerticalOptions="Center"
+           HorizontalOptions="Center"
+           Grid.Row="1" 
+                   />
+
+            <StackLayout  x:Name="ChartSection" Orientation="Vertical" Grid.Row="3" Grid.Column="0" IsVisible="True">
+                    <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Always">
+                <skia:SKCanvasView x:Name="ChartCanvas" PaintSurface="OnCanvasViewPaintSurface"  HeightRequest="700"  Grid.Row="0" Grid.Column="0" />
+                    </ScrollView>
+                    <!-- X-Axis Label --><!--
+                <Label Text="Songs"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Margin="0,10,0,0"
+               FontSize="16"
+               FontAttributes="Bold"/> -->
+            </StackLayout>
+
+            <VerticalStackLayout x:Name="GridSection" WidthRequest="500"  Grid.Row="3" Grid.Column="0" IsVisible="False">
+                <!-- Table Header -->
+                <Grid ColumnDefinitions="*,*,*" RowSpacing="0" ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Header Cells with Border and No Rounded Corners -->
+                    <Frame BorderColor="Black" Padding="5" Margin="0" BackgroundColor="LightGray" CornerRadius="0">
+                        <Label Text="NAME" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                    </Frame>
+                    <Frame BorderColor="Black" Padding="5" Margin="0" BackgroundColor="LightGray" Grid.Column="1" CornerRadius="0">
+                        <Label Text="COUNT" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                    </Frame>
+                    <Frame BorderColor="Black" Padding="5" Margin="0" BackgroundColor="LightGray" Grid.Column="2" CornerRadius="0">
+                        <Label Text="NOTES" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                    </Frame>
+                </Grid>
+
+                <!-- Data Grid -->
+                <CollectionView ItemsSource="{Binding Songs}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="*,*,*" RowSpacing="0" ColumnSpacing="0">
+                                <!-- Name Cell with Border and No Rounded Corners -->
+                                <Frame BorderColor="Black" Padding="10" Margin="0" BackgroundColor="White" CornerRadius="0">
+                                    <Label Text="{Binding SongName}" FontSize="14" VerticalTextAlignment="Center" />
+                                </Frame>
+
+                                <!-- Count Cell with Border and No Rounded Corners -->
+                                <Frame BorderColor="Black" Padding="10" Margin="0" BackgroundColor="White" Grid.Column="1" CornerRadius="0">
+                                    <Label Text="{Binding SpinCount}" FontSize="14" VerticalTextAlignment="Center" />
+                                </Frame>
+
+                                <!-- Notes Cell with Border and No Rounded Corners -->
+                                <Frame BorderColor="Black" Padding="10" Margin="0" BackgroundColor="White" Grid.Column="2" CornerRadius="0">
+                                    <Label Text="{Binding RotationNotes}" FontSize="14" VerticalTextAlignment="Center" />
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Export Button -->
+
+                <Button Text="Export to Excel" Clicked="ExportToExcel_Click" 
+                                BackgroundColor="Green" TextColor="White"
+                                HorizontalOptions="Center" Margin="10"/>    
+            </VerticalStackLayout>
+
+
+
+        </Grid>
+
+
+
+        <!--<VerticalStackLayout WidthRequest="500">
+            --><!-- Table Header --><!--
+            <Grid ColumnDefinitions="*,*,*" RowSpacing="0" ColumnSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                --><!-- Header Cells with Border and No Rounded Corners --><!--
+                <Frame BorderColor="Black" Padding="5" Margin="0" BackgroundColor="LightGray" CornerRadius="0">
+                    <Label Text="NAME" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                </Frame>
+                <Frame BorderColor="Black" Padding="5" Margin="0" BackgroundColor="LightGray" Grid.Column="1" CornerRadius="0">
+                    <Label Text="COUNT" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                </Frame>
+                <Frame BorderColor="Black" Padding="5" Margin="0" BackgroundColor="LightGray" Grid.Column="2" CornerRadius="0">
+                    <Label Text="NOTES" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                </Frame>
+            </Grid>
+
+            --><!-- Data Grid --><!--
+            <CollectionView ItemsSource="{Binding Songs}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*,*,*" RowSpacing="0" ColumnSpacing="0">
+                            --><!-- Name Cell with Border and No Rounded Corners --><!--
+                            <Frame BorderColor="Black" Padding="10" Margin="0" BackgroundColor="White" CornerRadius="0">
+                                <Label Text="{Binding SongName}" FontSize="14" VerticalTextAlignment="Center" />
+                            </Frame>
+
+                            --><!-- Count Cell with Border and No Rounded Corners --><!--
+                            <Frame BorderColor="Black" Padding="10" Margin="0" BackgroundColor="White" Grid.Column="1" CornerRadius="0">
+                                <Label Text="{Binding SpinCount}" FontSize="14" VerticalTextAlignment="Center" />
+                            </Frame>
+
+                            --><!-- Notes Cell with Border and No Rounded Corners --><!--
+                            <Frame BorderColor="Black" Padding="10" Margin="0" BackgroundColor="White" Grid.Column="2" CornerRadius="0">
+                                <Label Text="{Binding RotationNotes}" FontSize="14" VerticalTextAlignment="Center" />
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>-->
+
+
+
+        <!-- Export Button --><!--
+        <Button Text="Export to Excel" Clicked="ExportToExcel_Click" 
+                BackgroundColor="Green" TextColor="White"
+                HorizontalOptions="Center"/>-->
+
+
+
+
+        <!-- Chart Section -->
+        <!--
+        <chart:CartesianChart x:Name="BarChart"
+                              HeightRequest="300"
+                              Padding="20"
+                              Background="White"/>
+
+         -->
+        <!--Data Grid Section-->
+        <!-- 
+        <sfgrid:SfDataGrid x:Name="DataGrid"
+                            
+                           
+                           HeaderRowHeight="40"
+                           RowHeight="40"
+                           Margin="0,10,0,0"/>-->
+
+
+
+        <!--<microcharts:ChartView x:Name="ChartDisplay" Grid.Row="4" Grid.ColumnSpan="5" HeightRequest="300" />-->
+
+        <!--<skia:SKCanvasView x:Name="ChartCanvas" PaintSurface="OnCanvasViewPaintSurface" HeightRequest="300" />-->
+
+
+
+    </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

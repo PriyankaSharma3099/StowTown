@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.Pages.Songs.CreateSong"
+             Title="" BackgroundColor="#E5EFEE">
+    
+    <VerticalStackLayout >
+        
+        
+        <!--<Label x:Name="HeaderName"
+      FontSize="24"
+      FontAttributes="Bold"
+      TextColor="Black"
+      VerticalOptions="Center"
+      HorizontalOptions="Start" />-->
+
+        <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto" Margin="20">
+            <!-- Label on the Left -->
+            <Label x:Name="HeaderName"
+           FontSize="26"
+           FontAttributes="Bold"
+           TextColor="Black"
+           VerticalOptions="Center"
+           HorizontalOptions="Start"
+           Grid.Column="0" Padding="20,0,0,0"/>
+
+            <!-- StackLayout for Buttons on the Right -->
+            <StackLayout Orientation="Horizontal"
+                 HorizontalOptions="End"
+                 Grid.Column="1"
+                 Spacing="10">
+                <!--<Button Text="Save"/>-->
+                <Button Text="Back" WidthRequest="120"  CornerRadius="5" Clicked="OnCancelClicked"/>
+                <Button x:Name="SaveButton"
+Text="Save"
+BackgroundColor="#63CF6C"
+TextColor="White"
+CornerRadius="5"
+Padding="10"
+Clicked="OnSaveClicked"
+HorizontalOptions="End"
+WidthRequest="120" Margin="10,0,22,0"/>
+            </StackLayout>
+        </Grid>
+
+        <Grid RowDefinitions="Auto" Padding="30,0">
+            <Frame Grid.Row="0" BorderColor="White" Padding="10" CornerRadius="5" Margin="10" BackgroundColor="White">
+                <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto">
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Start">
+                        <Label Text="Cover Image" FontSize="14" Margin="0,0,0,5"/>
+                        <Frame BorderColor="#e0e0e0" CornerRadius="5" Padding="0" HasShadow="True" Margin="10" WidthRequest="200" HeightRequest="200">
+                            <Grid BackgroundColor="White">
+                                <Image x:Name="SelectedImageView" Source="imagepicker.png" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="180" HeightRequest="200"/>
+                                <Label x:Name="NoImageLabel" Text="NO THUMB" TextColor="#666666" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,10,0,0"/>
+                                <Button x:Name="SelectImageButton" BackgroundColor="Transparent" Clicked="SelectImageButton_Clicked" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                            </Grid>
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <Grid Grid.Row="0" Grid.Column="1" ColumnDefinitions="Auto, Auto, Auto" RowDefinitions="Auto, Auto, Auto, Auto" Margin="20,0,0,0" RowSpacing="5" ColumnSpacing="5">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Title *" FontSize="14"/>
+                        <Entry Grid.Row="1" Grid.Column="0" x:Name="Title_txt" Text="{Binding Name}" BackgroundColor="White" WidthRequest="220"/>
+
+                        <Label Grid.Row="0" Grid.Column="1" Text="Artist Group*" FontSize="14"/>
+                        <!--<Picker x:Name="Artist_DD" ItemsSource="{Binding _artists}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedArtist, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>-->
+
+                        <Picker x:Name="Artist_DD"
+                                    ItemsSource="{Binding Artists}"
+                                    ItemDisplayBinding="{Binding Name}"
+                                    SelectedItem="{Binding SelectedArtist, Mode=TwoWay}"
+                                    Grid.Row="1"
+                                    Grid.Column="1"/>
+
+
+
+                        <Label Grid.Row="0" Grid.Column="2" Text="Release Date" FontSize="14"/>
+                        <DatePicker Grid.Row="1" Grid.Column="2" x:Name="ReleaseDatePicker" BackgroundColor="White" WidthRequest="220"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Text="Minutes *" FontSize="14"/>
+                        <Entry Grid.Row="3" Grid.Column="0" Text="{Binding Minutes}" x:Name="Minutes_txt" BackgroundColor="White" WidthRequest="220"/>
+
+                        <Label Grid.Row="2" Grid.Column="1" Text="Seconds" FontSize="14"/>
+                        <Entry Grid.Row="3" Grid.Column="1" Text="{Binding Seconds}" x:Name="Seconds_txt" BackgroundColor="White" WidthRequest="220"/>
+                    </Grid>
+                </Grid>
+            </Frame>
+        </Grid>
+                    <!--<Button x:Name="SaveButton"
+            Text="Save"
+            BackgroundColor="#63CF6C"
+            TextColor="White"
+            CornerRadius="8"
+            Padding="10"
+            Clicked="OnSaveClicked"
+            HorizontalOptions="End"
+            WidthRequest="80"/>-->
+        
+    </VerticalStackLayout>
+</ContentPage>

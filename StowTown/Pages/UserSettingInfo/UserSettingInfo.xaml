@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.Pages.UserSettingInfo.UserSettingInfo"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" BackgroundColor="#E5EFEE"
+             Title="">
+    <VerticalStackLayout Margin="20">
+
+        <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto">
+            <!-- Label on the Left -->
+            <Label Text="User Setting"
+     FontSize="26"
+     FontAttributes="Bold"
+     TextColor="Black"
+     VerticalOptions="Center"
+     HorizontalOptions="Start"
+     Grid.Column="0"/>
+
+            <!-- StackLayout for Buttons on the Right -->
+            <StackLayout Orientation="Horizontal"
+           HorizontalOptions="End"
+           Grid.Column="1"
+           Spacing="10">
+                <!--<Button Text="Save"/>-->
+                <Button Text="Back" WidthRequest="120"  Clicked="OnCancelClicked" CornerRadius="3"/>
+                <Button x:Name="SaveButton"
+Text="Save"
+BackgroundColor="#63CF6C"
+TextColor="White"
+CornerRadius="3"
+Padding="10"
+Clicked="OnSaveClicked"
+HorizontalOptions="End"
+WidthRequest="120"/>
+            </StackLayout>
+        </Grid>
+
+        <Grid RowDefinitions="Auto" Padding="30,0">
+            <Frame Grid.Row="0" BorderColor="White" Padding="10" CornerRadius="5" Margin="10" BackgroundColor="White">
+                <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto">
+
+                    <!-- Left Panel - Photo -->
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Start">
+                        <Label Text="Member Photo" FontSize="14" Margin="0,0,0,5"/>
+                        <Frame BorderColor="#e0e0e0" CornerRadius="5" Padding="0" HasShadow="True" Margin="10" WidthRequest="200" HeightRequest="200">
+                        
+                            <Grid BackgroundColor="White">
+                                <Image x:Name="SelectedImageView"
+           Source="imagepicker.png"
+           Aspect="AspectFit"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           WidthRequest="180"
+           HeightRequest="200" />
+
+                                <Label x:Name="NoImageLabel"
+           Text="NO THUMB"
+           TextColor="#666666"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           Margin="0,10,0,0" />
+
+                                <Button x:Name="SelectImageButton"
+            BackgroundColor="Transparent"
+            Clicked="SelectImageButton_Clicked"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill" />
+                            </Grid>
+
+
+
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <!-- Right Panel - Form -->
+                    <Grid Grid.Row="0" Grid.Column="1"
+                   ColumnDefinitions="Auto, Auto, Auto"
+                   RowDefinitions="Auto, Auto, Auto, Auto,Auto,Auto"
+                   Margin="20,0,0,0"
+                   RowSpacing="5" ColumnSpacing="5">
+
+                        <Label Grid.Row="0" Grid.Column="0" Text="First Name *" FontSize="14"/>
+                        <Entry Grid.Row="1" Grid.Column="0" x:Name="first_name"  BackgroundColor="White" WidthRequest="220"/>
+
+                        <Label Grid.Row="0" Grid.Column="1" Text="Last Name *" FontSize="14"/>
+                        <Entry Grid.Row="1" Grid.Column="1"  x:Name="last_name" BackgroundColor="White" WidthRequest="220"/>
+
+                        <Label Grid.Row="0" Grid.Column="2" Text="Email *" FontSize="14"/>
+                        <Entry Grid.Row="1" Grid.Column="2" x:Name="email_txt" BackgroundColor="White" WidthRequest="220"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Text=" Email Password *" FontSize="14"/>
+                        <Entry Grid.Row="3" Grid.Column="0" x:Name="password_txt" IsPassword="False" BackgroundColor="White" WidthRequest="220"/>
+
+                        <Label Grid.Row="2" Grid.Column="1" Text="Notification Date" FontSize="14"/>
+                        <DatePicker Grid.Row="3" Grid.Column="1"   x:Name="notification_txt" BackgroundColor="White" WidthRequest="220"/>
+
+                        <Button x:Name="passwordButton"
+Text="Chage Password"
+BackgroundColor="Azure"
+TextColor="Black"
+CornerRadius="0"
+Padding="10"
+Clicked="OnChangedPasswordClicked" BorderColor="DarkBlue" BorderWidth="3"
+Grid.Row="5"
+WidthRequest="200" />
+
+                    </Grid>
+                </Grid>
+            </Frame>
+        </Grid>
+      
+      
+    </VerticalStackLayout>
+
+</ContentPage>

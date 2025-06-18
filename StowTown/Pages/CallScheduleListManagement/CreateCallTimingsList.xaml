@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.Pages.CallScheduleListManagement.CreateCallTimingsList"
+             Title="" BackgroundColor="#E5EFEE">
+    <VerticalStackLayout Margin="0">
+
+        <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto" Margin="20">
+        
+            <Label x:Name="HeaderName"
+     FontSize="26"
+     FontAttributes="Bold"
+     TextColor="Black"
+     VerticalOptions="Center"
+     HorizontalOptions="Start"
+     Grid.Column="0" Margin="20,10,0,0"/>
+
+            <StackLayout Orientation="Horizontal"
+           HorizontalOptions="End"
+           Grid.Column="1" 
+           Spacing="10" Margin="0,10,22,0">
+                <Button Text="Back" WidthRequest="120"  CornerRadius="5" Clicked="OnCancelClicked"/>
+                <Button x:Name="SaveButton"
+Text="Save"
+BackgroundColor="#63CF6C"
+TextColor="White"
+CornerRadius="5"
+Padding="10"
+Clicked="OnSaveClicked"
+HorizontalOptions="End"
+WidthRequest="120"/>
+                <Button  
+                   x:Name="delete_btn"  
+                   Text="Delete"  
+                   IsVisible="False"  
+                    CornerRadius="5"
+                    WidthRequest="120"
+                   Clicked="OnDeleteClicked" 
+                    BackgroundColor="Red"/>
+            </StackLayout>
+        </Grid>
+
+        <Grid RowDefinitions="Auto" Padding="30,0">
+            <Frame Grid.Row="0" BorderColor="White" Padding="10" CornerRadius="5" Margin="10" BackgroundColor="White">
+                <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto">
+
+
+                    <Grid Grid.Row="0" Grid.Column="0" ColumnDefinitions="Auto, Auto, Auto" RowDefinitions="Auto, Auto, Auto, Auto" Margin="50,0,0,0" RowSpacing="15" ColumnSpacing="15">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Radio Stations*" FontSize="14"/>
+
+                        <Picker x:Name="Radio_Stations"
+                              ItemsSource="{Binding Radios}"
+                              ItemDisplayBinding="{Binding Name}"
+                              SelectedItem="{Binding SelectedRadio, Mode=TwoWay}" WidthRequest="220"
+                              Grid.Row="1"
+                              Grid.Column="0"
+                              SelectedIndexChanged="Radio_SelectionChanged"
+                              />
+
+
+
+                        <Label Grid.Row="0" Grid.Column="1" Text="DJ" FontSize="14"/>
+                        <Entry Grid.Row="1" Grid.Column="1"  Text="{Binding DJ}"  x:Name="DJ_txt"  BackgroundColor="White" WidthRequest="220"/>
+
+                        <Label Grid.Row="0" Grid.Column="2" Text="Start Time " FontSize="14"/>
+                        <Entry Grid.Row="1" Grid.Column="2" Text="{Binding StartMinutes}" x:Name="StartMinutes_txt" BackgroundColor="White" WidthRequest="220"/>
+
+
+                        <Label Grid.Row="2" Grid.Column="0" Text="End Time " FontSize="14"/>
+                        <Entry Grid.Row="3" Grid.Column="0" Text="{Binding EndMinutes}" x:Name="EndMinutes_txt" BackgroundColor="White" WidthRequest="220"/>
+
+                        <Label Grid.Row="2" Grid.Column="1" Text="WeekDay" FontSize="14"/>
+
+                        <Picker x:Name="WeekDay"
+                                   ItemsSource="{Binding WeekDays}"
+                                   ItemDisplayBinding="{Binding Name}"
+                                   SelectedItem="{Binding Day, Mode=TwoWay}" WidthRequest="220"
+                                   Grid.Row="3"
+                                   Grid.Column="1"
+                                   SelectedIndexChanged="WeekDay_SelectionChanged"
+                          />
+
+                    </Grid>
+                </Grid>
+            </Frame>
+        </Grid>
+
+    </VerticalStackLayout>
+</ContentPage>

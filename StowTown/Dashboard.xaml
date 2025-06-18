@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="StowTown.Dashboard"
+             BackgroundColor="#E5EFEE"
+             Title="Dashboard">
+    
+    
+
+    <!-- Define the layout with Grid -->
+    <Grid ColumnDefinitions="Auto, 2.1*, 9*" RowDefinitions="Auto, *" Margin="0,0,0,0">
+
+        <!-- Left Column for Menu (fixed width) -->
+        <Grid Grid.Column="0" BackgroundColor="White" Padding="10">
+            <!-- Logo Section -->
+            <StackLayout Orientation="Vertical" Padding="10">
+                <Image x:Name="ImgLogo" Source="/assets/avatar.png" WidthRequest="60" HeightRequest="60" HorizontalOptions="Center"/>
+                <Label x:Name="txtLogo" FontSize="14" HorizontalTextAlignment="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="StowTown" FontAttributes="Bold"/>
+                            <Span Text="\n" />
+                            <Span Text="More Text" TextColor="Gray"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+
+            <!-- Menu Items Section -->
+            <StackLayout Padding="20" Spacing="20">
+                <Button x:Name="btnDashboard" Text="Dashboard" Clicked="OnDashboardClicked" HorizontalOptions="FillAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="/assets/Home.png" />
+                    </Button.ImageSource>
+                </Button>
+
+                <Button x:Name="btnProducer" Text="Producer" Clicked="OnProducerClicked" HorizontalOptions="FillAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="/assets/radio.png" />
+                    </Button.ImageSource>
+                </Button>
+
+                <Button x:Name="btnRadioStation" Text="Radio Stations" Clicked="OnRadioStationClicked" HorizontalOptions="FillAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="/assets/radio.png" />
+                    </Button.ImageSource>
+                </Button>
+
+                <Button x:Name="btnDJ" Text="DJ" Clicked="OnDJClicked" HorizontalOptions="FillAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="/assets/headphones.png" />
+                    </Button.ImageSource>
+                </Button>
+
+                <Button x:Name="btnArtist" Text="Artist" Clicked="OnArtistClicked" HorizontalOptions="FillAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="/assets/user.png" />
+                    </Button.ImageSource>
+                </Button>
+
+                <Button x:Name="btnReport" Text="Reporting" Clicked="OnReportingClicked" HorizontalOptions="FillAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="/assets/Icons.png" />
+                    </Button.ImageSource>
+                </Button>
+
+                <Button x:Name="btnCallHistory" Text="Call History" Clicked="OnCallHistoryClicked" HorizontalOptions="FillAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="/assets/phone-calling.png" />
+                    </Button.ImageSource>
+                </Button>
+
+                <Button x:Name="btnSongList" Text="Song List" Clicked="OnSongListClicked" HorizontalOptions="FillAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="/assets/music.png" />
+                    </Button.ImageSource>
+                </Button>
+
+                <Button x:Name="btnMonthlySongList" Text="Monthly List" Clicked="OnMonthlySongListClicked" HorizontalOptions="FillAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="/assets/filemusic.png" />
+                    </Button.ImageSource>
+                </Button>
+
+                <Button x:Name="btnCallScheduler" Text="Call Scheduler" Clicked="OnCallSchedulerClicked" HorizontalOptions="FillAndExpand">
+                    <Button.ImageSource>
+                        <FileImageSource File="/assets/Icons.png" />
+                    </Button.ImageSource>
+                </Button>
+            </StackLayout>
+        </Grid>
+
+        <!-- Right Column for Main Content -->
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header Section -->
+            <StackLayout Grid.Row="0" Orientation="Horizontal" Padding="10" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                <Image x:Name="userimage" Source="{Binding UserImage}" WidthRequest="60" HeightRequest="60" Margin="0,0,14,10"/>
+                <Label FontSize="16">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding UserName}" FontAttributes="Bold"/>
+                            <Span Text="\n"/>
+                            <Span Text="Admin" TextColor="Gray"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Button WidthRequest="20" HeightRequest="20" BackgroundColor="Transparent" BorderColor="Transparent" Padding="0" Clicked="OnAdminMenuClicked">
+                    <Button.ImageSource>
+                        <FileImageSource File="/assets/Shape.png" />
+                    </Button.ImageSource>
+                </Button>
+            </StackLayout>
+
+            <!-- Main Content Area -->
+            <Frame Grid.Row="1" x:Name="MainContent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+        </Grid>
+
+    </Grid>
+</ContentPage>

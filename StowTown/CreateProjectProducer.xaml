@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.CreateProjectProducer"
+             Title="" BackgroundColor="#E5EFEE">
+
+  
+        <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always">
+
+
+        <VerticalStackLayout >
+
+            <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto" Margin="20">
+                <!-- Label on the Left -->
+                <Label x:Name="HeaderName"
+           FontSize="26"
+           FontAttributes="Bold"
+           TextColor="Black"
+           VerticalOptions="Center"
+           HorizontalOptions="Start"
+           Grid.Column="0" Padding="20,0,0,0"/>
+
+                <!-- StackLayout for Buttons on the Right -->
+                <StackLayout Orientation="Horizontal"
+                 HorizontalOptions="End"
+                 Grid.Column="1"
+                 Spacing="10">
+                    <!--<Button Text="Save"/>-->
+                    <Button Text="Back" WidthRequest="120"  CornerRadius="5" Clicked="BackButton_Clicked"/>
+                    <Button x:Name="SaveButton"
+Text="Save"
+BackgroundColor="#63CF6C"
+TextColor="White"
+CornerRadius="5"
+Padding="10"
+Clicked="SaveButton_Clicked"
+HorizontalOptions="End"
+WidthRequest="120" Margin="10,0,22,0"/>
+                </StackLayout>
+            </Grid>
+
+            <Grid RowDefinitions="Auto" Padding="30,0">
+                <Frame Grid.Row="0" BorderColor="White" Padding="10" CornerRadius="5" Margin="10" BackgroundColor="White" HeightRequest="300">
+                    <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto">
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Start">
+                            <Label Text="Cover Image" FontSize="14" Margin="0,0,0,5"/>
+                            <Frame BorderColor="#e0e0e0" CornerRadius="5"  IsClippedToBounds="True" Padding="0" HasShadow="True" Margin="10" WidthRequest="200" HeightRequest="200">
+                                <!--<Grid x:Name="ImagePickerGrid"  BackgroundColor="White">
+
+                                    <Image x:Name="SelectedImageView"  Aspect="AspectFit" BackgroundColor="Green" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="180" HeightRequest="200">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer
+            Tapped="OnImageTapped"
+/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    --><!--<Label x:Name="NoImageLabel" Text="NO THUMB" TextColor="#666666" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,10,0,0" IsVisible="{Binding Source={x:Reference SelectedImageViewForMember}, Path=Source, Converter={StaticResource NullToBoolConverter}, ConverterParameter=True}"/>--><!--
+                                    <Button x:Name="SelectImageButton" BackgroundColor="Transparent" Clicked="SelectImageButton_Clicked" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                                </Grid>-->
+                                <Grid x:Name="ImagePickerGrid"  BackgroundColor="White">
+                                    <VerticalStackLayout>
+
+                                        <Image x:Name="SelectedImageView"
+                                                    Aspect="AspectFit"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="180"
+                                                    HeightRequest="200" />
+
+                                        <!-- Button covers full grid and handles tap -->
+                                        <Button x:Name="SelectImageButton"
+                                         BackgroundColor="Transparent"
+                                         Clicked="OnImageTapped"
+                                         HorizontalOptions="Fill"
+                                         VerticalOptions="Fill" WidthRequest="180"
+                                        HeightRequest="200" />
+                                    </VerticalStackLayout>
+                           
+                                </Grid>
+
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <Grid Grid.Row="0" Grid.Column="1" ColumnDefinitions="Auto, Auto, Auto" RowDefinitions="Auto, Auto, Auto, Auto,Auto,Auto" Margin="20,30,0,0" RowSpacing="5" ColumnSpacing="20">
+                            <Label Grid.Row="0" Grid.Column="0" Text="Producer Name  *" FontSize="14"/>
+                            <Entry Grid.Row="1" Grid.Column="0" x:Name="ProducerName"  BackgroundColor="White" WidthRequest="220"/>
+
+                            <Label Grid.Row="0" Grid.Column="1" Text="DOB *" FontSize="14"/>
+                           
+                            <DatePicker x:Name="DOB_txt"
+                                   
+                                    Grid.Row="1"
+                                    Grid.Column="1" WidthRequest="220"/>
+
+
+
+                            <Label Grid.Row="0" Grid.Column="2" Text="Mobile *" FontSize="14"/>
+                            <Entry Grid.Row="1" Grid.Column="2"  x:Name="MobileNo" Keyboard="Numeric"
+                   MaxLength="10"
+                   TextChanged="MobileNo_TextChanged" BackgroundColor="White" WidthRequest="220"/>
+
+                            <Label Grid.Row="2" Grid.Column="0" Text="Address *" FontSize="14"/>
+                            <Entry Grid.Row="3" Grid.Column="0"  x:Name="Addreess" BackgroundColor="White" WidthRequest="220"/>
+
+                            <Label Grid.Row="2" Grid.Column="1" Text="City" FontSize="14"/>
+                            <Entry Grid.Row="3" Grid.Column="1"  x:Name="City" BackgroundColor="White" WidthRequest="220"/>
+
+                            <Label Grid.Row="2" Grid.Column="2" Text="State" FontSize="14"/>
+                            <Entry Grid.Row="3" Grid.Column="2"  x:Name="State" BackgroundColor="White" WidthRequest="220"/>
+
+                            <Label Grid.Row="4" Grid.Column="0" Text="Zip Code *" FontSize="14"/>
+                            <Entry Grid.Row="5" Grid.Column="0"  x:Name="ZipCode"  Keyboard="Numeric"  BackgroundColor="White" WidthRequest="220"/>
+
+                            <Label Grid.Row="4" Grid.Column="1" Text="Email *" FontSize="14"/>
+                            <Entry Grid.Row="5" Grid.Column="1"  x:Name="Email" BackgroundColor="White" Keyboard="Email" WidthRequest="220"/>
+                            
+                        
+
+                        </Grid>
+                    </Grid>
+                </Frame>
+            </Grid>
+            <!--<Button x:Name="SaveButton"
+            Text="Save"
+            BackgroundColor="#63CF6C"
+            TextColor="White"
+            CornerRadius="8"
+            Padding="10"
+            Clicked="OnSaveClicked"
+            HorizontalOptions="End"
+            WidthRequest="80"/>-->
+
+        </VerticalStackLayout>
+
+        <!--<VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label x:Name="HeaderName" Grid.Row="0"
+   FontSize="24" FontAttributes="Bold" TextColor="#333333"
+   HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Grid Grid.Row="2" Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Text="Back" HorizontalOptions="EndAndExpand" WidthRequest="100"
+          BackgroundColor="#f0f0f0" TextColor="#333333" Clicked="BackButton_Clicked" />
+
+                    <Button Grid.Column="1" x:Name="SaveButton" HorizontalOptions="End" WidthRequest="100"
+          BackgroundColor="#63CF6C" TextColor="White" Clicked="SaveButton_Clicked" />
+                </Grid>
+            </VerticalStackLayout>
+          
+
+
+               
+                <VerticalStackLayout>
+                    --><!--<VerticalStackLayout BackgroundColor="AliceBlue">
+                        <Grid Grid.Row="1" ColumnSpacing="0" RowSpacing="0" Padding="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <VerticalStackLayout Grid.Column="0" >
+                                <Label Text="Cover Image" Grid.Column="0" FontSize="16" Margin="0,0,0,10" />
+                                <Frame BorderColor="#e0e0e0"
+                   CornerRadius="5"
+                   Padding="0"
+                   HeightRequest="200"
+                   WidthRequest="250"
+                   HasShadow="False"  Margin="0">
+
+                                    <Grid x:Name="ImagePickerGrid" BackgroundColor="#f5f5f5">
+                                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                                            <Image Source="imagepicker.png" HeightRequest="40" WidthRequest="40" Aspect="AspectFit" />
+                                            <Label Text="NO THUMB" TextColor="#666666" HorizontalOptions="Center" Margin="0,10,0,0" />
+                                        </VerticalStackLayout>
+                                        <ImageButton x:Name="SelectImageButton"
+                                 BackgroundColor="Transparent"
+                                 Opacity="0"
+                                 HorizontalOptions="Fill"
+                                 VerticalOptions="Fill"
+                                 Clicked="SelectImageButton_Clicked" />
+                                    </Grid>
+                                </Frame>
+                            </VerticalStackLayout>
+
+                            <Grid Grid.Column="1" RowSpacing="0" ColumnSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" Text="Producer Name *" FontSize="14" />
+                                <Entry Grid.Row="1" Grid.Column="0"
+                   x:Name="ProducerName"
+                   Placeholder="Enter producer name"
+                   TextChanged="ProducerName_TextChanged"
+                   WidthRequest="250" />
+
+                                <Label Grid.Row="0" Grid.Column="1" Text="DOB *" FontSize="14" />
+                                <DatePicker Grid.Row="1" Grid.Column="1"
+                        x:Name="DOB_txt"
+                        WidthRequest="250" />
+
+                                <Label Grid.Row="2" Grid.Column="0" Text="Mobile *" FontSize="14" />
+                                <Entry Grid.Row="3" Grid.Column="0"
+                   x:Name="MobileNo"
+                   Placeholder="Enter mobile number"
+                   Keyboard="Numeric"
+                   MaxLength="10"
+                   TextChanged="MobileNo_TextChanged"
+                   WidthRequest="250" />
+
+                                <Label Grid.Row="2" Grid.Column="1" Text="Address" FontSize="14" />
+                                <Entry Grid.Row="3" Grid.Column="1"
+                   x:Name="Addreess"
+                   Placeholder="Enter address"
+                   WidthRequest="250" />
+
+                                <Label Grid.Row="4" Grid.Column="0" Text="City" FontSize="14" />
+                                <Entry Grid.Row="5" Grid.Column="0"
+                   x:Name="City"
+                   Placeholder="Enter city"
+                   WidthRequest="250" />
+
+                                <Label Grid.Row="4" Grid.Column="1" Text="State" FontSize="14" />
+                                <Entry Grid.Row="5" Grid.Column="1"
+                   x:Name="State"
+                   Placeholder="Enter state"
+                   WidthRequest="250" />
+
+                                <Label Grid.Row="6" Grid.Column="0" Text="Zip Code *" FontSize="14" />
+                                <Entry Grid.Row="7" Grid.Column="0"
+                   x:Name="ZipCode"
+                   Placeholder="Enter zip code"
+                   Keyboard="Numeric"
+                   WidthRequest="250" />
+
+                                <Label Text="Email *" FontSize="14" Grid.Row="6" Grid.Column="1" />
+                                <Entry x:Name="Email" Grid.Row="7" Grid.Column="1"
+                   Placeholder="Enter email"
+                   Keyboard="Email"
+                   WidthRequest="250" />
+
+                            </Grid>
+                        </Grid>
+                    </VerticalStackLayout>--><!--
+
+
+                <Grid Padding="20" RowSpacing="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        --><!-- Image --><!--
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    --><!-- Cover Image --><!--
+                    <VerticalStackLayout  Grid.Column="0" Spacing="20" >
+                        --><!--<Label Text="Cover Image" FontSize="16" />
+                        <Frame BorderColor="#e0e0e0"
+                       CornerRadius="5"
+                       HeightRequest="200"
+                       WidthRequest="200"
+                       Padding="0"
+                       HasShadow="True">
+                            <Grid x:Name="ImagePickerGrid" BackgroundColor="#f5f5f5">
+                                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Image Source="imagepicker.png" HeightRequest="40" WidthRequest="40" />
+                                    <Label Text="NO THUMB" FontSize="12" TextColor="#666666" />
+                                </VerticalStackLayout>
+                                <ImageButton x:Name="SelectImageButton"
+                                     BackgroundColor="Transparent"
+                                     Opacity="0"
+                                     HorizontalOptions="Fill"
+                                     VerticalOptions="Fill"
+                                     Clicked="SelectImageButton_Clicked" />
+                            </Grid>
+                        </Frame>--><!--
+                    </VerticalStackLayout>
+
+                    --><!-- Producer Name --><!--
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="1" Spacing="5">
+                        <Label Text="Producer Name *" FontSize="14" />
+                        <Entry x:Name="ProducerName" Placeholder="Enter producer name" />
+                    </VerticalStackLayout>
+
+                    --><!-- DOB --><!--
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="2" Spacing="5">
+                        <Label Text="DOB *" FontSize="14" />
+                        <DatePicker x:Name="DOB_txt" />
+                    </VerticalStackLayout>
+
+                    --><!-- Mobile --><!--
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="3" Spacing="5">
+                        <Label Text="Mobile *" FontSize="14" />
+                        <Entry x:Name="MobileNo" Keyboard="Numeric" MaxLength="10" Placeholder="Enter mobile number" />
+                    </VerticalStackLayout>
+
+                    --><!-- Address --><!--
+                    <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="5">
+                        <Label Text="Address" FontSize="14" />
+                        <Entry x:Name="Addreess" Placeholder="Enter address" />
+                    </VerticalStackLayout>
+
+                    --><!-- City --><!--
+                    <VerticalStackLayout Grid.Row="1" Grid.Column="2" Spacing="5">
+                        <Label Text="City" FontSize="14" />
+                        <Entry x:Name="City" Placeholder="Enter city" />
+                    </VerticalStackLayout>
+
+                    --><!-- State --><!--
+                    <VerticalStackLayout Grid.Row="1" Grid.Column="3" Spacing="5">
+                        <Label Text="State" FontSize="14" />
+                        <Entry x:Name="State" Placeholder="Enter state" />
+                    </VerticalStackLayout>
+
+                    --><!-- Zip Code --><!--
+                    <VerticalStackLayout Grid.Row="2" Grid.Column="1" Spacing="5">
+                        <Label Text="Zip Code *" FontSize="14" />
+                        <Entry x:Name="ZipCode" Keyboard="Numeric" Placeholder="Enter zip code" />
+                    </VerticalStackLayout>
+
+                    --><!-- Email --><!--
+                    <VerticalStackLayout Grid.Row="2" Grid.Column="2" Spacing="5">
+                        <Label Text="Email *" FontSize="14" />
+                        <Entry x:Name="Email" Keyboard="Email" Placeholder="Enter email" />
+                    </VerticalStackLayout>
+                </Grid>
+
+            </VerticalStackLayout>
+          
+            
+            
+        </VerticalStackLayout>-->
+    </ScrollView>
+
+   
+</ContentPage>

@@ -1,0 +1,154 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.MainPage"
+             Title="MainPage">
+
+    <Grid>
+        <!-- Background Image -->
+        <Image Source="assets/Background.png"
+               Aspect="AspectFill"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="FillAndExpand" />
+
+        <!-- Main Content -->
+        <Frame BackgroundColor="#17FFFFFF"
+               BorderColor="#A4A4A4"
+               CornerRadius="20"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               HeightRequest="600"
+               WidthRequest="800">
+            <StackLayout Padding="20" VerticalOptions="CenterAndExpand">
+                <!-- Title Label -->
+                <Label Text="Explore the world to music"
+                       FontFamily="Arial Black"
+                       FontSize="36"
+                       FontAttributes="Bold"
+                       TextColor="#FBF9F9"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,10,0,20" />
+
+                <!-- Subtitle Labels -->
+                <Label Text="Discover new rhythms, timeless classics, and the stories behind the sound."
+                       FontSize="16"
+                       TextColor="White"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,0,0,10" />
+
+                <Label Text="Morbi lobortis maximus."
+                       FontSize="16"
+                       TextColor="White"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,0,0,20" />
+
+                <!-- Inputs -->
+                <!--<Label Text="Your Email"
+                       FontSize="16"
+                       TextColor="#EADDDD"
+                       Margin="150,10,0,15" />
+                <Frame BackgroundColor="White"
+                       CornerRadius="5"
+                       Padding="0"
+                       WidthRequest="363"
+                       HeightRequest="40">
+                    
+                    <Entry x:Name="Email_txt" 
+                        Placeholder="Enter your email"
+                           BackgroundColor="Transparent"
+                           TextColor="Black" />
+                </Frame>
+
+                <Label Text="Your Password"
+                       FontSize="16"
+                       TextColor="White"
+                       Margin="150,20,0,15" />
+                <Frame BackgroundColor="White"
+                       CornerRadius="5"
+                       Padding="0"
+                       WidthRequest="363"
+                       HeightRequest="40">
+                    <Entry x:Name="Pass_txt" 
+                        Placeholder="Enter your password"
+                           IsPassword="True"
+                           BackgroundColor="Transparent"
+                           TextColor="Black" Margin="0,0,70,0" />
+                </Frame>-->
+                <Grid ColumnDefinitions="Auto,*,*,*" RowDefinitions="Auto,*,*,Auto">
+                  
+                    <Label Text="Email"
+           FontSize="16"
+           TextColor="#EADDDD"
+           VerticalOptions="Center"
+           Margin="-50,20,0,15"
+           Grid.Row="0"
+           Grid.Column="2" />
+                    <Frame BackgroundColor="White"
+           CornerRadius="5"
+           Padding="0"
+           WidthRequest="363"
+           HeightRequest="40"
+           Grid.Row="1"
+           Grid.Column="2" Margin="0,0,0,5">
+                        <Entry x:Name="Email_txt"
+               Placeholder="Enter your email"
+                               Text="neha.bohra1508@gmail.com"
+               BackgroundColor="Transparent"
+               TextColor="Black" />
+                    </Frame>
+
+                    <Label Text="Password"
+           FontSize="16"
+           TextColor="#EADDDD"
+           VerticalOptions="Center"
+           Margin="-50,20,0,15"
+           Grid.Row="2"
+           Grid.Column="2" />
+                    <Frame BackgroundColor="White"
+           CornerRadius="5"
+           Padding="0"
+           WidthRequest="363"
+           HeightRequest="40"
+           Grid.Row="3"
+           Grid.Column="2" Margin="0,0,0,20">
+                        <Entry x:Name="Pass_txt"
+               Placeholder="Enter your password"
+               IsPassword="True"
+                               Text="12345"
+               BackgroundColor="Transparent"
+               TextColor="Black" Margin="0,0,0,0" />
+                    </Frame>
+                </Grid>
+
+                <!-- Log In Button -->
+                <Button Text="Log In"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="#FBF8F8"
+                        WidthRequest="363"
+                        HeightRequest="45"
+                        HorizontalOptions="Center"
+                        Margin="0,20,0,0"
+                        Clicked="Button_Clicked">
+                    <Button.Background>
+                        <LinearGradientBrush>
+                            <GradientStop Color="#A990D8" Offset="0" />
+                            <GradientStop Color="#5CAEBE" Offset="1" />
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+
+                <!-- Hyperlink -->
+                <Label Text="Forget Your Password?"
+                       TextDecorations="Underline"
+                       TextColor="White"
+                       FontSize="16"
+                       HorizontalOptions="Center"
+                       Margin="0,20,0,0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="navigateToForgetPassword" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>

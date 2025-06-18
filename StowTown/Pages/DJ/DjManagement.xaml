@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.Pages.DJ.DjManagement"
+             Title="" BackgroundColor="#E5EFEE">
+  
+    <ContentPage.Content>
+        <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always">
+            <Grid>
+                <VerticalStackLayout Padding="0" Spacing="10" MinimumWidthRequest="1200">
+                    <!--<Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
+                        <SearchBar x:Name="SearchEntry"
+                           Grid.Column="0"
+                           Placeholder="Search..."
+                           TextChanged="OnSearchTextChanged"
+                           Margin="5"
+                           BackgroundColor="#f8f9fa" />
+                        <Image Source="magnifier.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" />
+
+                        <Button Grid.Column="1"
+                        Text="Create"
+                        BackgroundColor="#63CF6C"
+                        TextColor="White"
+                        Clicked="OnCreateDJ"
+                        HorizontalOptions="End"
+                        CornerRadius="5"
+                                WidthRequest="100"
+                        Padding="5, 5" />
+                    </Grid>-->
+                    <Grid Grid.Row="0"  ColumnDefinitions="*,Auto">
+                        <Label Text="DJ Management"
+FontSize="26"
+FontAttributes="Bold"
+VerticalOptions="Center"
+HorizontalOptions="Start"
+TextColor="Black"
+Margin="20,25,0,0" />
+
+                        <HorizontalStackLayout Grid.Column="1" Spacing="10" Padding="0,40,0,0">
+                            <SearchBar x:Name="SearchEntry"
+        Placeholder="Search..."
+        TextChanged="OnSearchTextChanged"
+        BackgroundColor="White"
+        WidthRequest="250"
+        HeightRequest="40"
+        HorizontalOptions="End" />
+
+                            <Button Text="Create"
+     BackgroundColor="#63CF6C"
+     TextColor="White"
+     Clicked="OnCreateDJ"
+     CornerRadius="5"
+     WidthRequest="120"
+     HorizontalOptions="End"
+     HeightRequest="40" Margin="0,0,20,0"/>
+                        </HorizontalStackLayout>
+                    </Grid>
+
+                    <VerticalStackLayout Background="White" Margin="15">
+                    <CollectionView x:Name="DjCollectionView"
+                            ItemsSource="{Binding DJs}"
+                            BackgroundColor="White"
+                            SelectionMode="None">
+
+                           
+                            <CollectionView.Header>
+                            <Grid Padding="10"
+                                  
+                          ColumnDefinitions="80,250,200,250,*, Auto"
+                          
+                          MinimumWidthRequest="1200" BackgroundColor="#f8f9fa">
+                                <Label Text="S.No"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Start"
+                               Padding="10,0,0,5" />
+                                <Label Grid.Column="1"
+                               Text="Name"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Start"
+                               Padding="40,0,0,5"/>
+                                <Label Grid.Column="2"
+                               Text="Radio Station Name"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center" />
+                                <Label Grid.Column="3"
+                               Text="Email"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center" Padding="170,0,0,5" />
+                                <Label Grid.Column="4"
+                                        Text="Mobile Number"
+                                        FontSize="14"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center" />
+
+
+                                <Label Grid.Column="5"
+                               Text="Actions"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               HorizontalOptions="End"
+                               Padding="0,0,40,5"/>
+                            </Grid>
+                        </CollectionView.Header>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10"
+                              ColumnDefinitions="80,250,200,300,*, Auto"
+                              RowSpacing="5"
+                              BackgroundColor="White"
+                              MinimumWidthRequest="1200">
+
+                                    <Label Text="{Binding SerialNumber}"
+                                   FontSize="14"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+
+                                    <StackLayout Orientation="Horizontal"
+                                         Grid.Column="1"
+                                         Spacing="10"
+                                         VerticalOptions="Center">
+                                        <Image Source="{Binding Image}"
+                                       WidthRequest="50"
+                                       HeightRequest="30"
+                                       Aspect="AspectFit"
+                                       Margin="10,20,0,8" />
+                                        <Label Text="{Binding FirstName}"
+                                       FontSize="14"
+                                       VerticalOptions="Center" />
+                                    </StackLayout>
+
+                                    <Label Grid.Column="2"
+                                   Text="{Binding RadioStationName}"
+                                   FontSize="14"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+
+                                    <Label Grid.Column="3"
+                                   Text="{Binding Email}"
+                                   FontSize="14"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"  Padding="170,0,0,5" />
+
+                                    <Label Grid.Column="4"
+                                            Text="{Binding MobileNumber}"
+                                            FontSize="14"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" />
+
+                                    <HorizontalStackLayout Grid.Column="5"
+                                                   Spacing="5"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                   Margin="0,5">
+                                        <ImageButton Source="assets/eye.png"
+                                             HeightRequest="1"
+                                             WidthRequest="1"
+                                             Clicked="OnViewButtonClicked"
+                                             CommandParameter="{Binding Id}"
+                                             Padding="3"/>
+                                        <ImageButton Source="assets/edit.png"
+                                             HeightRequest="1"
+                                             WidthRequest="1"
+                                             Clicked="OnEditButtonClicked"
+                                             CommandParameter="{Binding Id}"
+                                             Padding="3"/>
+                                        <ImageButton Source="assets/trash.png"
+                                             HeightRequest="1"
+                                             WidthRequest="1"
+                                             Clicked="OnDeleteButtonClicked"
+                                             CommandParameter="{Binding Id}"
+                                             Padding="3"/>
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    </VerticalStackLayout>
+                    <!-- Pagination Controls -->
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                   Spacing="20"
+                                   Margin="20,0,0,0">
+                        <Button x:Name="PreviousButton"
+                        Text="Previous"
+                        Clicked="PreviousButton_Clicked"
+                        BackgroundColor="#63CF6C"
+                        TextColor="White"
+                        CornerRadius="5"
+                        Padding="10,5" WidthRequest="120"/>
+
+                        <Label x:Name="PageInfo"
+                       VerticalOptions="Center"
+                       FontSize="16"
+                       Text="Page 1 of 1"/>
+
+                        <Label x:Name="IsEmptyPageInfo"
+                             VerticalOptions="Center"
+                             FontSize="16"
+                             />   
+
+                        <Button x:Name="NextButton"
+                        Text="Next"
+                        Clicked="NextButton_Clicked"
+                        BackgroundColor="#63CF6C"
+                        TextColor="White"
+                        CornerRadius="5"
+                        Padding="10,5" WidthRequest="120"/>
+                    </HorizontalStackLayout>
+                      
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.Pages.ArtistsManagements.CreateArtistManagement"
+              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="" BackgroundColor="#E5EFEE">
+    <Grid RowDefinitions="Auto, *">
+
+        <!-- Header Section -->
+        <Grid Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="HeaderName"
+                FontSize="24"
+                FontAttributes="Bold"
+                TextColor="Black"
+                VerticalOptions="Center"
+                HorizontalOptions="Start" />
+            <Grid RowSpacing="30" ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Row="0" Grid.Column="1"  Clicked="OnCancelClicked"  HorizontalOptions="End"  WidthRequest="120" Text="Back" CornerRadius="5" />
+                <Button Grid.Row="0" Grid.Column="2" x:Name="OnAddMemberClickedButton" BackgroundColor="#7393B3"  Clicked="OnAddMemberClicked" HorizontalOptions="End" CornerRadius="5" WidthRequest="150" Text="Add New Member"/>
+                <Button x:Name="SaveButton"
+Text="Save"
+BackgroundColor="#63CF6C"
+TextColor="White"
+CornerRadius="5"
+Padding="0"
+Clicked="OnSaveClicked"
+HorizontalOptions="End"
+WidthRequest="120" Grid.Column="3" Margin="10,0,25,0" />
+
+            </Grid>
+        </Grid>
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20" Padding="10">
+
+                
+
+                        <VerticalStackLayout>
+
+                                <Grid Grid.Row="0" Grid.Column="0" ColumnDefinitions="Auto,Auto" BackgroundColor="White" Margin="10">
+                                    <!-- Left side: Cover Image Label -->
+                                    <Grid Padding="20" Grid.Column="0">
+                                        <!-- Cover Image Section -->
+                                        <Label Text="Cover Image" FontSize="16" Margin="0,0,0,10"/>
+
+                                        <AbsoluteLayout>
+                                            <Frame BorderColor="#e0e0e0" CornerRadius="5" Padding="0"
+HeightRequest="200" WidthRequest="250" HasShadow="True">
+                                                <Grid x:Name="ImagePickerGrid" BackgroundColor="#f5f5f5">
+
+                                                    <AbsoluteLayout VerticalOptions="Center" HorizontalOptions="Center">
+                                                        <!-- Default Image -->
+                                                        <Image x:Name="SelectedImageView" Source="imagepicker.png" HeightRequest="150" WidthRequest="250" Aspect="AspectFit"/>
+                                                        <Label x:Name="NoImageLabel" TextColor="#666666" HorizontalOptions="Center" Padding="60,40,50,0"/>
+                                                    </AbsoluteLayout>
+
+                                                    <!-- Transparent ImageButton for Tap -->
+                                                    <ImageButton x:Name="SelectImageButton" BackgroundColor="Transparent" Clicked="SelectImageButton_Clicked"/>
+
+                                                </Grid>
+                                            </Frame>
+                                        </AbsoluteLayout>
+
+                                    </Grid>
+
+                                 <Grid Grid.Row="0" Grid.Column="1" ColumnDefinitions="Auto,Auto,*" RowDefinitions="Auto, Auto,Auto,Auto,Auto" ColumnSpacing="20" RowSpacing="15" Padding="10">
+
+                                        <!-- Left side: Cover Image Label -->
+
+                                        <!-- First Row -->
+                                        <Label Grid.Row="0" Grid.Column="0" Text="Group Name *" FontSize="14" />
+                                        <Entry Grid.Row="1" Grid.Column="0" x:Name="Group_Name_txt" Text="{Binding Name}" BackgroundColor="White" HeightRequest="45" WidthRequest="220" />
+
+                                        <Label Grid.Row="0" Grid.Column="1" Text="Group Title *" FontSize="14"/>
+                                        <Entry Grid.Row="1" Grid.Column="1" x:Name="Group_title_txt" Text="{Binding GroupTitle}" BackgroundColor="White" HeightRequest="45"  WidthRequest="220" />
+
+
+                                        <!-- Second Row -->
+                                        <Label Grid.Row="2" Grid.Column="0" Text="Group Accomplishments" FontSize="14"/>
+                                        <Entry Grid.Row="3" Grid.Column="0" x:Name="Group_Accomplishments_txt" Text="{Binding GroupAccomplishment}" BackgroundColor="White"/>
+
+                                        <Label Grid.Row="2" Grid.Column="1" Text="Group Website" FontSize="14"/>
+                                        <Entry Grid.Row="3" Grid.Column="1" x:Name="Group_Website_txt" Text="{Binding GroupWebsite}" BackgroundColor="White" WidthRequest="200"/>
+
+
+
+                                        <Grid Grid.Row="4" Grid.Column="0" WidthRequest="220" ColumnDefinitions="Auto,Auto,*" RowDefinitions="Auto, Auto,Auto,Auto" ColumnSpacing="20" RowSpacing="15" BackgroundColor="White">
+                                            <Label Grid.Row="0" Grid.Column="0" Text="Project Producer *" FontSize="14"/>
+                                            <!-- Entry to Show Selected Producers -->
+                                            <Grid Grid.Row="1" Grid.Column="0" WidthRequest="220" >
+
+                                                <Frame BorderColor="LightGrey" Padding="0" BackgroundColor="White" CornerRadius="0" >
+
+                                                    <Grid x:Name="popupContainer">
+
+                                                        <Grid.GestureRecognizers>
+                                                            <TapGestureRecognizer Tapped="ShowPopup" />
+                                                        </Grid.GestureRecognizers>
+
+                                            <Entry Text="{Binding SelectedProducersText}" InputTransparent="True" IsReadOnly="True"  />
+                                                    </Grid>
+                                                </Frame>
+
+                                                <ContentView x:Name="PopupContainer"
+              IsVisible="False"
+              VerticalOptions="Center"
+              HorizontalOptions="Center"  >
+                                                    <Frame BackgroundColor="White"
+                    WidthRequest="200"
+                    Padding="10"
+                    CornerRadius="10">
+                                                        <VerticalStackLayout>
+                                                            <Label Text="Select Producers" FontSize="18" FontAttributes="Bold" />
+
+                                                            <ScrollView VerticalScrollBarVisibility="Always" HeightRequest="250">
+                                                                <CollectionView ItemsSource="{Binding Producers}">
+                                                                    <CollectionView.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Grid Padding="3" ColumnDefinitions="30, *">
+
+                                                                                <!--CheckBox Selection-->
+
+                                                                                <CheckBox Grid.Column="0"
+                                           IsChecked="{Binding IsSelectedProducer, Mode=TwoWay}"
+                                           CheckedChanged="OnCheckboxChanged"/>
+
+                                                                                <!--Producer Name-->
+                                                                                                      
+                                                                                <Label Grid.Column="1" Text="{Binding ProducerName}" VerticalOptions="Center"/>
+                                                        
+                                                                            </Grid>
+                                                                        </DataTemplate>
+                                                                    </CollectionView.ItemTemplate>
+                                                                </CollectionView>
+                                                            </ScrollView>
+
+                                                            <Button Text="OK" Clicked="ClosePopup" BackgroundColor="Blue" TextColor="White"/>
+                                                        </VerticalStackLayout>
+                                                    </Frame>
+                                                </ContentView>
+
+                                            </Grid>
+                                            <!--<Button Grid.Row="3" Grid.Column="1" Text="Add New Member" Clicked="OnAddMemberClicked" x:Name="OnAddMemberClickedButton" WidthRequest="140" Margin="10,0,0,0" Padding="0,0,0,0"/>-->
+
+                                        </Grid>
+                            <VerticalStackLayout Grid.Row="8" Grid.Column="1" Spacing="4">
+                                <Label Text="IsActive" FontSize="14"/>
+                                <CheckBox  x:Name="IsActiveEntry" IsChecked="{Binding IsActive, Mode=TwoWay}" IsEnabled="{Binding CanEditIsActive}" VerticalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                                </Grid>
+
+                        </VerticalStackLayout>
+
+
+
+
+
+                        <VerticalStackLayout Margin="10">
+
+                    <Label x:Name="MemberLabel"  FontSize="24"
+FontAttributes="Bold"
+    TextColor="Black"/>
+
+                    <ScrollView Grid.Row="0" Grid.Column="0" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never"  BackgroundColor="White">
+                                   
+                                    <VerticalStackLayout x:Name="MemberContainer" BindableLayout.ItemsSource="{Binding Members ,Mode=TwoWay}">
+                           
+
+                            <BindableLayout.ItemTemplate>
+                                            
+                                            <DataTemplate>
+                                                
+                                                <Frame BorderColor="White" Padding="10" CornerRadius="5" Margin="0,10,10,0"   BackgroundColor="White" >
+                                                    
+                                                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*" >
+                                                        <VerticalStackLayout Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" HorizontalOptions="Start">
+                                                            <Label Text="Member Photo" FontSize="14" Margin="0,0,0,5"/>
+                                                            <Frame BorderColor="#e0e0e0" CornerRadius="5" Padding="30" HeightRequest="200" WidthRequest="200" HasShadow="True" Margin="10">
+                                                                <Grid BackgroundColor="#e0e0e0" Padding="40">
+                                                                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                                                                        <!--<Image x:Name="SelectedImageViewForMember" Source="imagepicker.png" HeightRequest="120" WidthRequest="200" Aspect="AspectFit"/>-->
+                                                            <!--<Image x:Name="SelectedImageViewForMember" HeightRequest="120" WidthRequest="200" Aspect="AspectFit"/>-->
+
+                                                            <!--<Image x:Name="memberImageSource"  WidthRequest="100"  HeightRequest="100"  Aspect="AspectFill" />
+                                                            <Label   x:Name="NoImageLabel" Text="NO THUMB" TextColor="#666666" HorizontalOptions="Center" Margin="10,10,10,10"/>-->
+                                                                    </VerticalStackLayout>
+
+                                                            <!--Transparent ImageButton for Tap-->
+                                                        <VerticalStackLayout BackgroundColor="Transparent" WidthRequest="200" HeightRequest="200"  >
+                                                            <!--<Image x:Name="SelectedImageView1"
+               Source="{Binding MemberPicture}"
+               WidthRequest="100"
+               HeightRequest="100" />-->
+
+                                                            <Image Source="{Binding MemberPicture,Mode=TwoWay}"
+                                           WidthRequest="200"
+                                           HeightRequest="200"
+                                           Aspect="AspectFill"  BackgroundColor="Transparent" >
+                                                                <Image.GestureRecognizers>
+                                                                    <TapGestureRecognizer Tapped="OnMemberImageTapped" />
+                                                                </Image.GestureRecognizers>
+                                                            </Image>
+                     
+                                                        </VerticalStackLayout>
+                                                                    
+
+
+                                                        <!--<ImageButton x:Name="SelectImageButton" BackgroundColor="#e0e0e0" Clicked="SelectImageButtonForMember_Clicked"   />-->
+                                                                </Grid>
+                                                            </Frame>
+                                                            <Button  Margin ="20" Text="Remove Member" BackgroundColor="Red" Grid.Row="0" Grid.Column="2" TextColor="White" Clicked="OnRemoveMemberClicked" CommandParameter="{Binding .}"/>
+
+                                                        </VerticalStackLayout>
+
+                                                        <Grid Grid.Row="0" Grid.Column="1" 
+                                               ColumnDefinitions="Auto,Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" 
+                                               Margin="20,0,0,0" RowSpacing="10" ColumnSpacing="15"  >
+                                                            <Label Grid.Row="0" Grid.Column="0" Text="Member Name *" FontSize="14"/>
+                                                            <Entry Grid.Row="1" Grid.Column="0"  x:Name="MemberName" Text="{Binding MemberName}" BackgroundColor="White" WidthRequest="220" HeightRequest="5" />
+
+                                                            <Label Grid.Row="0" Grid.Column="1" Text="Position * " FontSize="14"/>
+                                                            <Entry Grid.Row="1" Grid.Column="1"  x:Name="Position" Text="{Binding Position}" BackgroundColor="White" WidthRequest="220" HeightRequest="5"/>
+
+                                                            <Label Grid.Row="0" Grid.Column="2" Text="DOB *" FontSize="14"/>
+
+                                                            <Entry Grid.Row="1" Grid.Column="2"  Text="{Binding DOB}" BackgroundColor="White" WidthRequest="220" HeightRequest="5"/>
+
+
+                                                           <DatePicker Grid.Row="1" Grid.Column="2"  Date="{Binding Birthday, Mode=TwoWay}" BackgroundColor="White" WidthRequest="220" HeightRequest="5"/>
+                                                          
+
+                                                         <Label Grid.Row="2" Grid.Column="0" Text="Address" FontSize="14"/>
+                                                            <Entry Grid.Row="3" Grid.Column="0" Text="{Binding Address}" x:Name="Address" BackgroundColor="White" WidthRequest="220" HeightRequest="5"/>
+
+                                                            <Label Grid.Row="2" Grid.Column="1" Text="City" FontSize="14"/>
+                                                            <Entry Grid.Row="3" Grid.Column="1"  Text="{Binding City}" x:Name="City" BackgroundColor="White" WidthRequest="220" HeightRequest="5"/>
+
+                                                            <Label Grid.Row="2" Grid.Column="2" Text="State" FontSize="14"/>
+                                                            <Entry Grid.Row="3" Grid.Column="2" Text="{Binding State}" x:Name="State_txt" BackgroundColor="White" WidthRequest="220" HeightRequest="5"/>
+
+                                                            <Label Grid.Row="4" Grid.Column="0" Text="Zip *" FontSize="14"/>
+                                                            <Entry Grid.Row="5" Grid.Column="0" Text="{Binding Zip}" x:Name="Zip" BackgroundColor="White" WidthRequest="220" HeightRequest="5" Keyboard="Numeric" TextChanged="OnlyNumericTextChanged"/>
+
+                                                            <Label Grid.Row="4" Grid.Column="1" Text="Office Number" FontSize="14"/>
+                                                            <Entry Grid.Row="5" Grid.Column="1" Text="{Binding OfficeNumber}" x:Name="OfficeNumber" BackgroundColor="White" WidthRequest="220" HeightRequest="5"  Keyboard="Numeric" TextChanged="OnlyNumericTextChanged"/>
+
+                                                            <Label Grid.Row="4" Grid.Column="2" Text="Mobile Number *" FontSize="14"/>
+                                                             <Entry Grid.Row="5" Grid.Column="2"  Text="{Binding MobileNumber}" x:Name="Mobile" BackgroundColor="White" WidthRequest="220" HeightRequest="5"  Keyboard="Numeric" TextChanged="OnlyNumericTextChanged"/>
+
+                                                            <Label Grid.Row="6" Grid.Column="0" Text="Email *" FontSize="14"/>
+                                                            <Entry Grid.Row="7" Grid.Column="0" Text="{Binding Email}" x:Name="Email" BackgroundColor="White" WidthRequest="220" HeightRequest="5" />
+
+                                                            <Label Grid.Row="6" Grid.Column="1" Text="Facebook" FontSize="14"/>
+                                                            <Entry Grid.Row="7" Grid.Column="1"  Text="{Binding Facebook}" x:Name="Facebook" BackgroundColor="White" WidthRequest="220" HeightRequest="5"/>
+
+                                                            <Label Grid.Row="6" Grid.Column="2" Text="Instagram" FontSize="14"/>
+                                                            <Entry Grid.Row="7" Grid.Column="2" Text="{Binding Instagram}"  x:Name="Instagram" BackgroundColor="White" WidthRequest="220" HeightRequest="5"/>
+
+                                                            <Label Grid.Row="8" Grid.Column="0" Text="History " FontSize="14"/>
+                                                            <Entry Grid.Row="9" Grid.Column="0"  Text="{Binding AccoplishmentsHistory}" x:Name="AccoplishmentsHistory" BackgroundColor="White" WidthRequest="220" HeightRequest="5"/>
+
+                                                            <Label Grid.Row="8" Grid.Column="1" Text="Notes" FontSize="14"/>
+                                                            <Entry Grid.Row="9" Grid.Column="1" Text="{Binding Notes}" x:Name="Notes" BackgroundColor="White" WidthRequest="220" HeightRequest="5"/>
+
+
+                                                        </Grid>
+
+
+                                                    </Grid>
+                                                </Frame>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </VerticalStackLayout>
+                                </ScrollView>
+
+
+
+                          
+                        </VerticalStackLayout>
+                    
+
+             
+
+       
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

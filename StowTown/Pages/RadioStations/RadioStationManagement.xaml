@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.Pages.RadioStations.RadioStationManagement"
+             Title=""
+             Padding="20"
+             BackgroundColor="#E8F0F2"
+             >
+
+
+    <Grid RowDefinitions="Auto, Auto, *, Auto" >
+
+        <!-- Header Section -->
+        <Grid Grid.Row="0" ColumnDefinitions="*, Auto">
+            <Label Text="Radio Station Management"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"
+                   TextColor="Black"
+                   Margin="20,0,0,0" />
+
+            <HorizontalStackLayout Grid.Column="1" Spacing="10">
+                <SearchBar x:Name="SearchBar"
+                           Placeholder="Search..."
+                           TextChanged="OnSearchTextChanged"
+                           BackgroundColor="White"
+                           WidthRequest="250"
+                           HeightRequest="40"
+                           HorizontalOptions="End" Margin="0,15,0,0"/>
+
+                <Button Text="Create"
+                        BackgroundColor="#63CF6C"
+                        TextColor="White"
+                        Clicked="OnCreateClicked"
+                        CornerRadius="5"
+                        WidthRequest="120"
+                        HeightRequest="40"  Margin="0,10,30,0"/>
+            </HorizontalStackLayout>
+        </Grid>
+
+        <!-- Scrollable Content Section -->
+        <ScrollView Grid.Row="2"
+                    Orientation="Vertical"
+                    Padding="0,0,0,10">
+            <!-- Extra bottom padding -->
+
+            <CollectionView x:Name="RadioStationCollectionView"
+                            ItemsSource="{Binding _currentPageRadioStations}"
+                            SelectionMode="None"
+                            HorizontalScrollBarVisibility="Always"
+                            VerticalScrollBarVisibility="Always"
+                            Margin="10,30,10,80" >
+                <!-- Increased bottom margin to push items up -->
+                <CollectionView.EmptyView>
+                    <Label Text="No Data Available"
+           HorizontalTextAlignment="Center"
+               TextColor="Black"
+               FontSize="16"
+                           
+               FontAttributes="None" Margin="0,40,0,40"/>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemsLayout  HorizontalScrollBarVisibility="Always"
+ VerticalScrollBarVisibility="Always">
+                    <GridItemsLayout Orientation="Vertical" HorizontalItemSpacing="8" VerticalItemSpacing="8" Span="4"  />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame  
+                               BorderColor="Gray"
+                               
+                               WidthRequest="280"
+                               HeightRequest="240"
+                               CornerRadius="10" 
+                               HasShadow="True" >
+                            <VerticalStackLayout HorizontalOptions="Center"  VerticalOptions="Center" Spacing="5">
+                                <Frame WidthRequest="80" HeightRequest="70" BackgroundColor="LightGrey">
+                                    <Image Source="{Binding Image}"
+                                           Margin="0"   WidthRequest="40" HeightRequest="35"
+                                           Aspect="Fill" />
+                                </Frame>
+
+                                <Label Text="{Binding Name}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="Center"
+                                       TextColor="Black"/>
+
+                                <Label Text="{Binding Code}"
+                                       FontSize="14"
+                                       HorizontalTextAlignment="Center"
+                                       TextColor="Gray"/>
+
+                                <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                                    <Button Text="Upload File"
+                                            FontSize="12"
+                                            BackgroundColor="#7B1FA2"
+                                            TextColor="White"
+                                            Padding="5"
+                                            HeightRequest="35"
+                                            WidthRequest="100" 
+                                            Clicked="UploadFile_Clicked"/>
+
+                                    <Button Text="Manage"
+                                            FontSize="12"
+                                            BackgroundColor="LightGray"
+                                            Clicked="OnManageClicked"
+                                            TextColor="Black"
+                                            Padding="5"
+                                            HeightRequest="35"
+                                            WidthRequest="100"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </Frame>
+                       
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+            
+              
+        </ScrollView>
+
+        <!-- Pagination Controls -->
+        <Grid Grid.Row="3" Padding="0,0,0,0">
+            <!-- Increased bottom padding -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                <Button x:Name="PreviousButton"
+                        Text="Previous"
+                        Clicked="PreviousButton_Clicked"
+                        BackgroundColor="#63CF6C"
+                        TextColor="White"
+                        CornerRadius="5"
+                        Padding="10,5"
+                        WidthRequest="100"/>
+
+                <Label x:Name="PageInfo"
+                       VerticalOptions="Center"
+                       FontSize="16"
+                       Text="Page 1 of 1"
+                       TextColor="Black"/>
+
+                <Button x:Name="NextButton"
+                        Text="Next"
+                        Clicked="NextButton_Clicked"
+                        BackgroundColor="#63CF6C"
+                        TextColor="White"
+                        CornerRadius="5"
+                        Padding="10,5"
+                        WidthRequest="100"/>
+            </HorizontalStackLayout>
+        </Grid>
+
+    </Grid>
+
+
+</ContentPage>

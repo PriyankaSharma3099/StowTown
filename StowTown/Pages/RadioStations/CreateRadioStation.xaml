@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.Pages.RadioStations.CreateRadioStation"
+             Title=""
+             BackgroundColor="#E5EFEE"
+             >
+
+
+    <Grid RowDefinitions="Auto, *">
+
+        <!-- Header Section -->
+        <Grid Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="HeaderName" 
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"  Margin="10,20,10,0"/>
+
+            <Grid ColumnDefinitions="*,Auto" >
+
+                <Button x:Name="BackButton"
+            Text="Back"
+            
+            TextColor="White"
+            CornerRadius="8"
+            Padding="10"
+            Clicked="OnCancelClicked"
+            HorizontalOptions="EndAndExpand"
+            WidthRequest="120" Grid.Column="0" Margin="10,20,10,0"/>
+                <Button x:Name="SaveButton"
+Text="Create"
+BackgroundColor="#63CF6C"
+TextColor="White"
+CornerRadius="5"
+Padding="10"
+Clicked="OnSaveClicked"
+HorizontalOptions="End"
+WidthRequest="120" Grid.Column="1" Margin="10,20,20,0"/>
+            </Grid>
+           
+        </Grid>
+
+        <!-- Main Content -->
+       <ScrollView Grid.Row="1" Orientation="Both" HorizontalScrollBarVisibility="Always">
+    <VerticalStackLayout Spacing="20" Padding="10" Margin="10">
+
+        <Grid ColumnDefinitions="3*, 7*" RowSpacing="0" ColumnSpacing="0">
+
+            <!-- Left Column: Cover Image -->
+                    <VerticalStackLayout Grid.Column="0" Padding="10" Margin="0,0,0,0"  BackgroundColor="White">
+                <Label Text="Cover Image" FontSize="16" FontAttributes="Bold" Margin="0,0,0,10" BackgroundColor="White"/>
+                <Frame BorderColor="Gray"
+                       CornerRadius="5"
+                       HeightRequest="220"
+                       WidthRequest="250"
+                       Padding="0,0,0,0" 
+                       BackgroundColor="White" Margin="80,20,80,0"
+                       HorizontalOptions="Start">
+                            <Grid x:Name="ImagePickerGrid" ColumnSpacing="0" RowSpacing="0" Margin="0,0,0,0"
+                          
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center" BackgroundColor="White">
+                                <Label Text="NO THUMB" TextColor="Black" HorizontalOptions="Center"   HeightRequest="40" WidthRequest="100"/>
+                                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10" >
+                            <Image x:Name="imagePicker" Source="{Binding Image}" HeightRequest="200" WidthRequest="300" Aspect="AspectFit" />
+                                    
+                                </VerticalStackLayout>
+                             
+                            </Grid>
+                </Frame>
+            </VerticalStackLayout>
+                  
+
+                    <!-- Right Column: Form Fields -->
+            <VerticalStackLayout Grid.Column="1" BackgroundColor="White">
+                        
+                    <Grid ColumnDefinitions="*,*,*"
+                          RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto,Auto,Auto"
+                          ColumnSpacing="20"
+                          RowSpacing="15"
+                          Padding="10">
+
+                        <!-- First Row -->
+                        <Label Grid.Row="0" Grid.Column="0" Text="Name *" FontSize="14"/>
+                        <Entry Grid.Row="1" Grid.Column="0" x:Name="NameEntry" Text="{Binding Name}" BackgroundColor="White"/>
+
+                        <Label Grid.Row="0" Grid.Column="1" Text="Station Code *" FontSize="14"/>
+                        <Entry Grid.Row="1" Grid.Column="1" x:Name="CodeEntry" Text="{Binding Code}" BackgroundColor="White"/>
+
+                        <Label Grid.Row="0" Grid.Column="2" Text="Email *" FontSize="14"/>
+                        <Entry Grid.Row="1" Grid.Column="2" x:Name="EmailEntry" Text="{Binding Email}" BackgroundColor="White" Keyboard="Email"/>
+
+                        <!-- Second Row -->
+                        <Label Grid.Row="2" Grid.Column="0" Text="Physical Address" FontSize="14"/>
+                        <Entry Grid.Row="3" Grid.Column="0" x:Name="PhysicalAddressEntry" Text="{Binding PhysicalAddress}" BackgroundColor="White"/>
+
+                        <Label Grid.Row="2" Grid.Column="1" Text="Physical City" FontSize="14"/>
+                        <Entry Grid.Row="3" Grid.Column="1" x:Name="PhysicalCityEntry" Text="{Binding PhyCity}" BackgroundColor="White"/>
+
+                        <Label Grid.Row="2" Grid.Column="2" Text="Physical State" FontSize="14"/>
+                        <Entry Grid.Row="3" Grid.Column="2" x:Name="PhysicalStateEntry" Text="{Binding PhyState}" BackgroundColor="White"/>
+
+                        <!-- Third Row -->
+                        <Label Grid.Row="4" Grid.Column="0" Text="Physical Zip Code *" FontSize="14"/>
+                        <Entry Grid.Row="5" Grid.Column="0" x:Name="PhysicalZipEntry" Text="{Binding PhyZip}" BackgroundColor="White" Keyboard="Numeric" TextChanged="OnlyNumericTextChanged"/>
+
+                        <Label Grid.Row="4" Grid.Column="1" Text="Mailing Address" FontSize="14"/>
+                        <Entry Grid.Row="5" Grid.Column="1" x:Name="MailingAddressEntry" Text="{Binding MailingAddress}" BackgroundColor="White"/>
+
+                        <Label Grid.Row="4" Grid.Column="2" Text="Mailing City" FontSize="14"/>
+                        <Entry Grid.Row="5" Grid.Column="2" x:Name="MailingCityEntry" Text="{Binding MailCity}" BackgroundColor="White"/>
+
+                        <!-- Fourth Row -->
+                        <Label Grid.Row="6" Grid.Column="0" Text="Mailing State" FontSize="14"/>
+                        <Entry Grid.Row="7" Grid.Column="0" x:Name="MailingStateEntry" Text="{Binding MailState}" BackgroundColor="White"/>
+
+                        <Label Grid.Row="6" Grid.Column="1" Text="Mailing Zip Code *" FontSize="14"/>
+                            <Entry Grid.Row="7" Grid.Column="1" x:Name="MailingZipEntry" Text="{Binding MailZip}" BackgroundColor="White" Keyboard="Numeric" TextChanged="OnlyNumericTextChanged"/>
+
+                        <Label Grid.Row="6" Grid.Column="2" Text="Station Telephone Number *" FontSize="14"/>
+                            <Entry Grid.Row="7" Grid.Column="2" x:Name="TelephoneEntry" Text="{Binding Telephone}" BackgroundColor="White" Keyboard="Telephone" TextChanged="OnlyNumericTextChanged"/>
+
+                            <!-- Notes Section -->
+                                <Frame Padding="15" BackgroundColor="White" CornerRadius="8" Grid.Row="8" Grid.Column="0">
+                                    <VerticalStackLayout>
+                                        <Label Text="Notes" FontSize="14"/>
+                                        <Editor x:Name="NotesEntry"
+                 BackgroundColor="White"
+                 Text="{Binding Notes}"
+                 AutoSize="TextChanges"/>
+                                    </VerticalStackLayout>
+                                </Frame>
+
+
+                            <VerticalStackLayout Grid.Row="8" Grid.Column="1" Spacing="4">
+                                <Label Text="IsActive" FontSize="14"/>
+                                <CheckBox  x:Name="IsActiveEntry" IsChecked="{Binding IsActive, Mode=TwoWay}" IsEnabled="{Binding CanEditIsActive}" VerticalOptions="Center"/>
+                            </VerticalStackLayout>
+
+
+
+
+
+                        </Grid>
+                
+                
+               
+            </VerticalStackLayout>
+
+        </Grid>
+
+        <!-- Notes Section --><!--
+        <Frame Padding="15" BackgroundColor="White" CornerRadius="8">
+            <VerticalStackLayout>
+                <Label Text="Notes" FontSize="14"/>
+                <Editor x:Name="NotesEntry"
+                        BackgroundColor="White"
+                        Text="{Binding Notes}"
+                        AutoSize="TextChanges"/>
+            </VerticalStackLayout>
+        </Frame>-->
+
+        <!-- Save Button -->
+        <!--<Button x:Name="SaveButton"
+                Text="Create"
+                BackgroundColor="#63CF6C"
+                TextColor="White"
+                CornerRadius="8"
+                Padding="10"
+                Clicked="OnSaveClicked"
+                HorizontalOptions="End"
+                WidthRequest="100"/>-->
+
+    </VerticalStackLayout>
+</ScrollView>
+
+    </Grid>
+</ContentPage>

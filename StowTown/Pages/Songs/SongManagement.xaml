@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.Pages.Songs.SongManagement"
+             Title="" BackgroundColor="#E5EFEE">
+
+
+    <ScrollView HorizontalScrollBarVisibility="Always" VerticalScrollBarVisibility="Always">
+        
+        <VerticalStackLayout>
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Always">
+
+                <Grid RowDefinitions="Auto,*,Auto">
+            <Grid Grid.Row="0" ColumnDefinitions="*, Auto">
+                <Label Text="Song Management"
+               FontSize="26"
+               FontAttributes="Bold"
+               VerticalOptions="Center"
+               HorizontalOptions="Start"
+               TextColor="Black"
+               Margin="20" />
+
+                <HorizontalStackLayout Grid.Column="1" Spacing="10">
+                    <SearchBar x:Name="SearchBar"
+                       Placeholder="Search..."
+                       TextChanged="OnSearchTextChanged"
+                       BackgroundColor="White"
+                       WidthRequest="250"
+                       HeightRequest="40"
+                       HorizontalOptions="End"/>
+
+                    <Button Text="Create"
+                    BackgroundColor="#63CF6C"
+                    TextColor="White"
+                    Clicked="OnCreateClicked"
+                    CornerRadius="5"
+                    WidthRequest="120"
+                    HeightRequest="40" Margin="0,0,30,0"/>
+                </HorizontalStackLayout>
+            </Grid>
+
+        
+
+                <Grid Grid.Row="1" RowDefinitions="Auto" Margin="20">
+                <CollectionView x:Name="SongList"
+                ItemsSource="{Binding Song}"
+                BackgroundColor="White"
+                SelectionMode="None">
+
+               <CollectionView.Header>
+                        <Grid Padding="10"
+                  ColumnDefinitions="1*,  2*, 2*, 2*, 2*"
+                  BackgroundColor="#f8f9fa"
+                  MinimumWidthRequest="1200">
+                            <Label Text="S.No"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Start"
+                       Padding="20,0,0,5" />
+                            <Label Grid.Column="1"
+                       Text="Song Title"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Start"
+                       Padding="20,0,0,5"/>
+                            <Label Grid.Column="2"
+                       Text="Artist"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+                            <!--<Label Grid.Column="3"
+                       Text="Duration"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />-->
+
+
+                            <Label Grid.Column="3"
+                                    Text="Release Date"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center" />
+                            <Label Grid.Column="4"
+                       Text="Actions"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       HorizontalOptions="End"
+                       Padding="40,0,40,0"/>
+                        </Grid>
+                    </CollectionView.Header>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10"
+                      ColumnDefinitions="1*,  2*, 2*, 2*, 2*"
+                      RowSpacing="5"
+                      BackgroundColor="White"
+                      MinimumWidthRequest="1200">
+
+                                <Label Text="{Binding SerialNumber}"
+                           FontSize="14"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Start" Padding="25,0,0,0" />
+
+                                <StackLayout Orientation="Horizontal"
+                                 Grid.Column="1"
+                                 Spacing="10"
+                                 VerticalOptions="Center"  >
+                                    <Image Source="{Binding Image}"
+                               WidthRequest="40"
+                               HeightRequest="40"
+                               Aspect="AspectFit"
+                               Margin="0,5" />
+                                    <Label Text="{Binding Name}"
+                               FontSize="14"
+                               VerticalOptions="Center"  />
+                                </StackLayout>
+
+                                <Label Grid.Column="2"
+                           Text="{Binding ArtistName}"
+                           FontSize="14"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+
+                                <!--<Label Grid.Column="3"
+                           Text="{Binding Duration}"
+                           FontSize="14"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />-->
+
+                                <Label Grid.Column="3"
+                      Text="{Binding ReleaseDate}"
+                      FontSize="14"
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center" />
+
+
+                                <HorizontalStackLayout Grid.Column="4"
+                                           Spacing="10"
+                                           HorizontalOptions="EndAndExpand"
+                                           VerticalOptions="Center"
+                                           Padding="40,5">
+                                    <ImageButton Source="assets/eye.png"
+                                     HeightRequest="4"
+                                     WidthRequest="4"
+                                     Clicked="OnViewButtonClicked"
+                                     CommandParameter="{Binding Id}"
+                                     Padding="3"/>
+                                    <ImageButton Source="assets/edit.png"
+                                     HeightRequest="4"
+                                     WidthRequest="4"
+                                     Clicked="OnEditButtonClicked"
+                                     CommandParameter="{Binding Id}"
+                                     Padding="3"/>
+                                    <ImageButton Source="assets/trash.png"
+                                     HeightRequest="4"
+                                     WidthRequest="4"
+                                     Clicked="OnDeleteButtonClicked"
+                                     CommandParameter="{Binding Id}"
+                                     Padding="3"/>
+
+                                </HorizontalStackLayout>
+                            </Grid>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Label x:Name="NoResultsLabel" Text="No Results Found" IsVisible="False" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Grid.Row="0" Padding="0,70,0,0"/>
+            </Grid>
+
+
+            <Grid Grid.Row="2">
+
+                <!-- Pagination Controls -->
+                <HorizontalStackLayout HorizontalOptions="Center"
+            Spacing="20"
+            Margin="0,20,0,0">
+
+                    <!--<Label x:Name="NoResultsLabel" Text="No Results Found" IsVisible="False" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>-->
+
+                    <Button x:Name="PreviousButton"
+                            Text="Previous"
+                             Clicked="PreviousButton_Clicked"
+                             BackgroundColor="#63CF6C"
+                             TextColor="White"
+                             CornerRadius="5"
+                             Padding="10,5"/>
+
+                                                <Label x:Name="PageInfo"
+                            VerticalOptions="Center"
+                            FontSize="16"
+                            Text="Page 1 of 1"/>
+
+                            <Label x:Name="IsEmptyPageInfo"
+                                VerticalOptions="Center"
+                                FontSize="16"
+                                />
+
+                            <Button x:Name="NextButton"
+                             Text="Next"
+                             Clicked="NextButton_Clicked"
+                             BackgroundColor="#63CF6C"
+                             TextColor="White"
+                             CornerRadius="5"
+                             Padding="10,5"/>
+                </HorizontalStackLayout>
+            </Grid>
+          
+
+        </Grid>
+                </ScrollView>
+       
+    </VerticalStackLayout>
+
+    </ScrollView>
+</ContentPage>

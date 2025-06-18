@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.HomeDashboard"
+             Title=""
+             xmlns:behaviors="clr-namespace:StowTown"
+             Shell.NavBarIsVisible="True"
+             Shell.NavBarHasShadow="True" BackgroundColor="#E5EFEE" >
+
+    <ScrollView HorizontalScrollBarVisibility="Always" VerticalScrollBarVisibility="Always">
+
+        <VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Grid x:Name="LoaderOverlay"            
+              IsVisible="True"
+              VerticalOptions="FillAndExpand"
+              HorizontalOptions="FillAndExpand" 
+              ZIndex="0">
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="0,60,0,30">
+                        <ActivityIndicator IsRunning="True" Color="#0990e3" WidthRequest="50" HeightRequest="50" />
+                        <Label Text="Loading..." TextColor="Black" HorizontalOptions="Center" Margin="0,10,0,0"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout x:Name="MainContent" IsVisible="False" Padding="20,0,20,0" >
+            <!-- Welcome Message -->
+            <Label  x:Name="CurrentUserLabel"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Start"  />
+
+            <!-- Dashboard Cards -->
+            <Grid ColumnDefinitions="*,*,*,*"
+      RowDefinitions="Auto"
+      Margin="0,20,0,0">
+                <Frame BorderColor="LightGray" CornerRadius="8" Padding="10" Margin="5"  >
+                    <Grid ColumnDefinitions="*,Auto"  >
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Radio Station"
+                       FontSize="16"   />
+                            <Label Text="{Binding RadioStationCount}"
+                       FontSize="24"
+                       FontAttributes="Bold" TextColor="#FF46B48A"/>
+                        </VerticalStackLayout>
+                        <Image Source="assets/RadioDash.png" WidthRequest="45"
+                   HeightRequest="40"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"
+                   Grid.Column="1" />
+                    </Grid>
+                </Frame>
+
+                <Frame BorderColor="LightGray" CornerRadius="8"   Padding="10" Margin="5" Grid.Column="1" >
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Today Calls List"
+                       FontSize="16" />
+                            <Label x:Name="CallCount" Text="{Binding TodayCallCount} "
+                       FontSize="24"
+                       FontAttributes="Bold" TextColor="#FF46B48A" />
+                        </VerticalStackLayout>
+                        <Image Source="assets/CallDash.png" WidthRequest="45"
+                   HeightRequest="40"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"
+                   Grid.Column="1" />
+                    </Grid>
+                </Frame>
+
+                <Frame BorderColor="LightGray" CornerRadius="8" Padding="10" Margin="5" Grid.Column="2">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Monthly Songs"
+                       FontSize="16" />
+                            <Label x:Name="MonthlySongCount" Text="{Binding MonthlySongCount}"
+                       FontSize="24"
+                       FontAttributes="Bold" TextColor="#FF46B48A"/>
+                        </VerticalStackLayout>
+                        <Image Source="assets/musicDash.png" WidthRequest="45"
+                   HeightRequest="40"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"
+                   Grid.Column="1" />
+                    </Grid>
+                </Frame>
+
+               
+            </Grid>
+
+
+
+   
+
+
+
+            <VerticalStackLayout>
+                <Grid Padding="10"
+          ColumnDefinitions="2*,*,3*"
+          RowDefinitions="Auto, Auto, Auto">
+
+                    <!-- Left Column (3 ListViews stacked) -->
+
+            <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                        <Label Text="Top 5 Music Of Last Month"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand" Margin="0,15"
+                            
+                        />
+                    
+
+                        <CollectionView x:Name="MonthlyTopSongsControl"
+                HeightRequest="200"
+                     WidthRequest="600"                  
+                Margin="10,0,10,0"              
+                HorizontalScrollBarVisibility="Never"
+                HorizontalOptions="Start">
+                            <!-- ✅ Prevent stretching beyond view -->
+
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15" />
+                            </CollectionView.ItemsLayout>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame CornerRadius="5"
+                   BackgroundColor="White"
+                   Margin="0,10,0,10"
+                   Padding="0,15,15,15"
+                   WidthRequest="180"
+                   HasShadow="True">
+
+                                        <VerticalStackLayout>
+                                            <Image Source="{Binding SongImage}" WidthRequest="140" HeightRequest="100" Margin="0,5,0,0" />
+                                            <Label Text="{Binding SongName}" FontAttributes="Bold" FontSize="14" Margin="0,5,0,0" Padding="10,0,0,0" />
+                                            <Label Text="{Binding ArtistName}" FontSize="12" TextColor="Gray" Padding="10,0,0,0" />
+                                            <Label FontSize="12" TextColor="Gray" Padding="10,0,0,0">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Spins: " />
+                                                        <Span Text="{Binding Spins}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </VerticalStackLayout>
+
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+
+
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="1" Grid.Column="0"  Margin="5">
+                        <Label 
+                         Text="Top 3 Artist Of Last Month"
+                         FontSize="20"
+                         FontAttributes="Bold"
+                         HorizontalOptions="StartAndExpand" Margin="0,15"
+                        />
+                        <CollectionView x:Name="MonthlyTopArtistControl"
+
+HorizontalScrollBarVisibility="Never"     
+Margin="10,0,0,0"   >
+
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15"  />
+                            </CollectionView.ItemsLayout>
+
+                            <CollectionView.ItemTemplate Padding="0" >
+                                <DataTemplate>
+                                    <Frame CornerRadius="5"
+   BackgroundColor="White"
+  Margin="0,10,10,10" Padding="0,15,15,15"   
+   WidthRequest="180"
+                 
+   HasShadow="True">
+
+                                        <VerticalStackLayout>
+                                            <Image Source="{Binding ArtistImage}" WidthRequest="140" HeightRequest="100" Margin="0,5,0,0" />
+                                            <Label Text="{Binding ArtistName}" FontAttributes="Bold" FontSize="14" Margin="0,5,0,0" Padding="10,0,0,0" />
+                                            <!--<Label Text="{Binding ArtistName}" FontSize="12" TextColor="Gray" Padding="10,0,0,0"  />-->
+                                            <!--<Label FontSize="12" TextColor="Gray" Padding="10,0,0,0">
+                                   <Label.FormattedText>
+                                       <FormattedString>
+                                           <Span Text="Spins: " />
+                                           <Span Text="{Binding Spins}" />
+                                       </FormattedString>
+                                   </Label.FormattedText>
+                               </Label>-->
+                                        </VerticalStackLayout>
+
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+
+                    <VerticalStackLayout Grid.Row="2" Grid.Column="0" >
+                        <Label 
+                             Text="Music List"
+                             FontSize="20"
+                             FontAttributes="Bold"
+                             HorizontalOptions="StartAndExpand" Margin="0,15"
+                         />
+                       
+                        <CollectionView x:Name="MonthlyMusicControl"
+                                ItemsSource="{Binding MusicList}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" />
+                            </CollectionView.ItemsLayout>
+
+                            <CollectionView.Header>
+                                <Grid ColumnDefinitions="Auto,*,*,Auto" Padding="0">
+                                    <Border Grid.Column="0" Stroke="Black" StrokeThickness="1">
+                                        <Label Text="#" FontAttributes="Bold" WidthRequest="60" Padding="5" HorizontalOptions="Center" />
+                                    </Border>
+                                    <Border Grid.Column="1" Stroke="Black" StrokeThickness="1">
+                                        <Label Text="Title" FontAttributes="Bold" Padding="5" HorizontalOptions="Start" />
+                                    </Border>
+                                    <Border Grid.Column="2" Stroke="Black" StrokeThickness="1">
+                                        <Label Text="Artist" FontAttributes="Bold" Padding="5" HorizontalOptions="Start" />
+                                    </Border>
+                                    <Border Grid.Column="3" Stroke="Black" StrokeThickness="1">
+                                        <Label Text="Spin" FontAttributes="Bold" WidthRequest="60" Padding="5" HorizontalOptions="Center" />
+                                    </Border>
+                                </Grid>
+                            </CollectionView.Header>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="Auto,*,*,Auto" Padding="0">
+                                        <Border Grid.Column="0" Stroke="Black" StrokeThickness="1">
+                                            <Label Text="{Binding SerialNumber}" WidthRequest="60" Padding="5" HorizontalOptions="Center"/>
+                                        </Border>
+                                        <Border Grid.Column="1" Stroke="Black" StrokeThickness="1">
+                                            <Label Text="{Binding SongName}" Padding="5" HorizontalOptions="Start"/>
+                                        </Border>
+                                        <Border Grid.Column="2" Stroke="Black" StrokeThickness="1">
+                                            <Label Text="{Binding ArtistName}" Padding="5" HorizontalOptions="Start"/>
+                                        </Border>
+                                        <Border Grid.Column="3" Stroke="Black" StrokeThickness="1">
+                                            <Label Text="{Binding Spins}" WidthRequest="60" Padding="5" HorizontalOptions="Center"/>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                  
+
+                    
+                
+                    <!-- Right Column (Single ListView spans all rows) -->
+                    <VerticalStackLayout Grid.RowSpan="3" Grid.Column="2" Margin="0,0,0,0" HorizontalOptions="End"  >
+                        <Label 
+                            Text="Today Calls List"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            HorizontalOptions="End"
+                        />
+                           
+                        <CollectionView x:Name="CallListControl"  
+    WidthRequest="300"
+    VerticalOptions="EndAndExpand"
+    Margin="0,0,0,0">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                            </CollectionView.ItemsLayout>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame CornerRadius="8"
+       Padding="0"
+       BackgroundColor="#e0f7fa"
+       HeightRequest="100"
+       HorizontalOptions="FillAndExpand">
+                                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                            <Image
+            Source="{Binding Image}"
+            WidthRequest="38"
+            HeightRequest="38"
+            Aspect="AspectFill"
+            Grid.Column="0" Margin="10,0,0,0"
+            VerticalOptions="Center" />
+
+                                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                                <Label
+                Text="{Binding RadioStationName}"
+                FontAttributes="Bold"
+                FontSize="18"
+                TextColor="#212121" />
+                                                <Label
+                Text="{Binding Timing}"
+                FontSize="14"
+                TextColor="#666666" />
+                                            </VerticalStackLayout>
+
+
+                                            <!--<CheckBox x:Name="MyCheckbox" Grid.Column="2" VerticalOptions="Center" IsChecked="{Binding Checked, Mode=TwoWay}"  IsEnabled="{Binding IsEnabled ,Mode=TwoWay}" CheckedChanged="CheckBox_CheckedChanged" >-->
+
+                                                    <CheckBox x:Name="MyCheckbox" Grid.Column="2"  VerticalOptions="Center"  IsChecked="{Binding Checked, Mode=TwoWay}" IsEnabled="{Binding IsEnabled, Mode=TwoWay}">
+                                                        <CheckBox.GestureRecognizers>
+                                                            <TapGestureRecognizer Tapped="OnCheckBoxTapped" />
+                                                        </CheckBox.GestureRecognizers>
+                                                    </CheckBox>
+
+
+                                                </Grid>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                          
+                    </VerticalStackLayout>
+                 
+
+                </Grid>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+
+
+
+
+
+
+
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.Pages.ManualSpinTracker.ManualSongSpins"
+             Title="" BackgroundColor="#E5EFEE">
+    <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Always">
+        <VerticalStackLayout>
+
+            <ScrollView Orientation="Horizontal">
+                <VerticalStackLayout>
+                <VerticalStackLayout Margin="0,20,0,0">
+            <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto" Margin="10,20,10,20">
+                <!-- Label on the Left -->
+                <Label 
+        FontSize="26"
+        FontAttributes="Bold"
+        TextColor="Black"
+        Text="Manual Spin Tracker"
+        VerticalOptions="Center"
+        HorizontalOptions="Start"
+        Grid.Column="0"
+        Padding="10,0,0,0"/>
+
+                <!-- Right Side: Dropdowns + Buttons -->
+                <StackLayout Orientation="Horizontal"
+                 HorizontalOptions="End"
+                 Grid.Column="1"
+                 Spacing="10"
+                 VerticalOptions="Center">
+
+                        <SearchBar x:Name="SearchBar"
+Placeholder="Search..."
+TextChanged="OnSearchTextChanged"
+BackgroundColor="White"
+WidthRequest="250"
+HeightRequest="50"
+HorizontalOptions="End"/>
+                        <!-- Year Picker -->
+                    <Picker x:Name="YearPicker" BackgroundColor="White"
+                WidthRequest="120"/>
+
+                    <!-- Month Picker -->
+                    <Picker x:Name="MonthPicker" BackgroundColor="White"  SelectedIndexChanged="OnSelectedMonthChanged"
+                WidthRequest="120"/>
+
+                    <!-- Radio Station Picker -->
+                    <Picker x:Name="RadioStationPicker" ItemDisplayBinding="{Binding Name}"  SelectedIndexChanged="OnSelectedRadioChanged"
+                WidthRequest="150" BackgroundColor="White"/>
+
+                    <!-- Buttons -->
+                    <Button Text="Back"
+                WidthRequest="120"
+                CornerRadius="5"
+                Clicked="OnCancelClicked"/>
+
+                    <Button x:Name="SaveButton"
+                Text="Save"
+                BackgroundColor="#63CF6C"
+                TextColor="White"
+                CornerRadius="5"
+                Padding="10"
+                Clicked="OnSaveClicked"
+                HorizontalOptions="End"
+                WidthRequest="120"
+                Margin="10,0,22,0"/>
+                </StackLayout>
+            </Grid>
+        </VerticalStackLayout>
+
+
+      
+           
+                <VerticalStackLayout Margin="20,0,30,0" BackgroundColor="White">
+
+                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="80,*,1*,1*,1*" ColumnSpacing="0" RowSpacing="10" Margin="0,10,0,0">
+
+                        <!-- Header Row -->
+                        <Label Grid.Row="0" Grid.Column="0" Text=" S.No" FontAttributes="Bold" WidthRequest="80"  Margin="20,0,0,0" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="Song Name" FontAttributes="Bold" WidthRequest="220" />
+                        <Label Grid.Row="0" Grid.Column="2" Text="Spins" FontAttributes="Bold"  WidthRequest="220"/>
+                        <Label Grid.Row="0" Grid.Column="3" Text="Position" FontAttributes="Bold" WidthRequest="220" />
+                        <Label Grid.Row="0" Grid.Column="4" Text="Rotation Notes" FontAttributes="Bold" WidthRequest="220" />
+
+                    </Grid>
+
+
+                    <CollectionView x:Name="SongsCollectionView" ItemsSource="{Binding PagedSongs}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid RowDefinitions="Auto,Auto"
+                  ColumnDefinitions="80,*,1*,1*,1*"
+                  ColumnSpacing="0" RowSpacing="6"
+                  Padding="0,0,0,20">
+
+
+                                    <!--<VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                                        <Image Source="{Binding Image}" Aspect="AspectFit" WidthRequest="80" HeightRequest="80" />
+                                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding SongName}" WidthRequest="220"  />
+                                    </VerticalStackLayout>-->
+                                    <!-- Data -->
+
+                                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding SerialNumber}" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="80" Margin="30,0,0,0" />
+                                    <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Spacing="10" VerticalOptions="Center" Margin="70,0,0,0">
+                                        <Image Source="{Binding Image}" WidthRequest="40" HeightRequest="40" Aspect="AspectFit" Margin="0,5" />
+                                        <Label Text="{Binding SongName}" FontSize="14" VerticalOptions="Center" />
+                                    </StackLayout>
+
+                                    <Entry Grid.Row="1" Grid.Column="2" Text="{Binding Spins}" Keyboard="Numeric"  WidthRequest="220" HorizontalOptions="Center"
+VerticalOptions="Center" />
+                                    <Entry Grid.Row="1" Grid.Column="3" Text="{Binding Possition}" Keyboard="Numeric"   WidthRequest="220" HorizontalOptions="Center"
+VerticalOptions="Center" />
+                                    <Entry Grid.Row="1" Grid.Column="4" Text="{Binding RotationNotes}"  WidthRequest="220"  HorizontalOptions="Center"
+VerticalOptions="Center"  />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+
+                    
+                    
+
+
+                </VerticalStackLayout>
+
+                    <VerticalStackLayout HorizontalOptions="Center"
+Spacing="20"
+Margin="0,20,0,20">
+
+                        <!--<Label x:Name="NoResultsLabel" Text="No Results Found" IsVisible="False" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>-->
+
+                        <Grid RowDefinitions="Auto"
+          ColumnDefinitions="Auto,Auto,Auto"
+          ColumnSpacing="20"
+          HorizontalOptions="Center">
+
+                            <Button x:Name="PreviousButton"
+                Grid.Column="0"
+                Text="Previous"
+                Clicked="PreviousButton_Clicked"
+                BackgroundColor="#63CF6C"
+                TextColor="White"
+                CornerRadius="5"
+                Padding="10,5"
+                WidthRequest="120"/>
+
+                            <Label x:Name="PageInfo"
+               Grid.Column="1"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               FontSize="16"
+               Text="Page 1 of 1"/>
+
+                            <Label x:Name="PageInfoNotFound"
+               Grid.Column="1"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               FontSize="16"
+               IsVisible="False"
+               />
+
+                            <Button x:Name="NextButton"
+                Grid.Column="2"
+                Text="Next"
+                Clicked="NextButton_Clicked"
+                BackgroundColor="#63CF6C" 
+                TextColor="White"
+                CornerRadius="5"
+                Padding="10,5"
+                WidthRequest="120"/>
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+            </ScrollView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

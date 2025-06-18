@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.DashboardPage"
+             Title="DashboardPage">
+    <StackLayout Padding="10">
+
+        <!-- First Card (Radio Station) -->
+        <Frame BackgroundColor="White" CornerRadius="10" Margin="0,0,10,10" HeightRequest="70">
+            <StackLayout Orientation="Horizontal" Padding="10">
+                <Label Text="Radio Station" FontSize="16" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                <Label x:Name="NoRadioList" FontSize="18" TextColor="#46B48A" VerticalOptions="Center" HorizontalOptions="End" />
+                <Image Source="/assets/RadioDash.png" WidthRequest="45" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" />
+            </StackLayout>
+        </Frame>
+
+        <!-- Second Card (Today Calls List) -->
+        <Frame BackgroundColor="White" CornerRadius="10" Margin="0,0,10,10" HeightRequest="70">
+            <StackLayout Orientation="Horizontal" Padding="10">
+                <Label Text="Today Calls List" FontSize="16" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                <Label x:Name="NoOfCalls" FontSize="18" TextColor="#46B48A" VerticalOptions="Center" HorizontalOptions="End" />
+                <Image Source="/assets/CallDash.png" WidthRequest="45" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" />
+            </StackLayout>
+        </Frame>
+
+        <!-- Third Card (Monthly Songs List) -->
+        <Frame BackgroundColor="White" CornerRadius="10" Margin="0,0,10,10" HeightRequest="70">
+            <StackLayout Orientation="Horizontal" Padding="10">
+                <Label Text="Monthly Songs List" FontSize="16" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                <Label x:Name="NoMonthList" FontSize="18" TextColor="#46B48A" VerticalOptions="Center" HorizontalOptions="End" />
+                <Image Source="/assets/musicDash.png" WidthRequest="45" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" />
+            </StackLayout>
+        </Frame>
+
+        <!-- Reports Card -->
+        <Frame BackgroundColor="White" CornerRadius="10" Margin="0,0,0,10" HeightRequest="70">
+            <StackLayout Orientation="Horizontal" Padding="10">
+                <Label Text="Reports" FontSize="16" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                <Label Text="Top 20" FontSize="18" TextColor="#46B48A" VerticalOptions="Center" HorizontalOptions="End" />
+                <Image Source="/assets/ReportsDash.png" WidthRequest="45" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="End" />
+            </StackLayout>
+        </Frame>
+
+        <!-- Monthly Top Songs List -->
+        <Label Text="Top 5 Music Of Last Month" FontSize="20" FontAttributes="Bold" Padding="10" />
+        <CollectionView x:Name="MonthlyTopSongsControl" ItemTemplate="{Binding}" />
+
+        <!-- Monthly Top Artists List -->
+        <Label Text="Top 3 Artists Of Last Month" FontSize="20" FontAttributes="Bold" Padding="10" />
+        <CollectionView x:Name="MonthlyTopArtistsControl" ItemTemplate="{Binding}" />
+
+        <!-- Song List Grid -->
+        <Label Text="Music List" FontSize="20" FontAttributes="Bold" Padding="10" />
+        <CollectionView x:Name="SongGrid" ItemTemplate="{Binding}" />
+
+        <!-- Call List -->
+        <Label Text="Today Calls List" FontSize="20" FontAttributes="Bold" Padding="10" />
+        <CollectionView x:Name="CallList" ItemTemplate="{Binding}" />
+
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StowTown.PojectProducerManagement"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Name="MainContent"
+             Title="" BackgroundColor="#E5EFEE">
+
+    <ContentPage.Content>
+        <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always">
+            
+                <VerticalStackLayout Padding="0" Spacing="0" >
+                   
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="0" Margin="10,30,10,10">
+                    <Label Text="Producer Management"
+                        FontSize="26"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        TextColor="Black"
+                        Margin="15,5,0,0" />
+
+                    <HorizontalStackLayout Grid.Column="1" > 
+                        <SearchBar x:Name="SearchBar"
+            
+            Placeholder="Search..."
+            TextChanged="OnSearchTextChanged"
+            Margin="0" 
+            BackgroundColor="#f8f9fa"  HorizontalOptions="EndAndExpand"  WidthRequest="250" HeightRequest="40" />
+
+                        <Button 
+         Text="Create"
+         BackgroundColor="#63CF6C"
+         TextColor="White"
+         Clicked="OnCreateClicked"
+         HorizontalOptions="End"
+         CornerRadius="5" WidthRequest="120"
+         Padding="10,0,0,0" Margin="5,0,15,0" />
+                    </HorizontalStackLayout>
+                   
+                    </Grid>
+
+                <VerticalStackLayout Margin="20,10,20,0">
+                    <CollectionView x:Name="ProducerList"
+                                ItemsSource="{Binding Producers}"
+                                BackgroundColor="White"
+                                SelectionMode="None">
+
+                        <CollectionView.Header>
+                            <Grid Padding="10"
+                              ColumnDefinitions="80, 280, 250, 380, *"
+                              BackgroundColor="#f8f9fa"
+                              MinimumWidthRequest="1200">
+                                <Label Text="S.No"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Start"
+                                   Padding="10,0,0,5" />
+                                <Label Grid.Column="1"
+                                   Text="Name"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Start"
+                                   Padding="100,0,100,5"/>
+                                <Label Grid.Column="2"
+                                   Text="Mobile No"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center" />
+                                <Label Grid.Column="3"
+                                   Text="Email"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="CenterAndExpand" />
+                                <Label Grid.Column="4"
+                                   Text="Actions"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="End"
+                                   Padding="0,0,250,5"/>
+                            </Grid>
+                        </CollectionView.Header>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10"
+                                  ColumnDefinitions="80, 280, 250, 380, *"
+                                  RowSpacing="5"
+                                  BackgroundColor="White"
+                                  MinimumWidthRequest="1200">
+
+                                    <Label Text="{Binding SerialNumber}"
+                                       FontSize="14"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+
+                                    <StackLayout Orientation="Horizontal"
+                                             Grid.Column="1"
+                                             Spacing="10"
+                                             VerticalOptions="Center">
+                                        <Image Source="{Binding ProducerImage}"
+                                           WidthRequest="40"
+                                           HeightRequest="40"
+                                           Aspect="AspectFit"
+                                           Margin="60,0,0,5" />
+                                        <Label Text="{Binding ProducerName}"
+                                           FontSize="14"
+                                           VerticalOptions="Center" Padding="1" />
+                                    </StackLayout>
+
+                                    <Label Grid.Column="2"
+                                       Text="{Binding MobileNo}"
+                                       FontSize="14"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+
+                                    <Label Grid.Column="3"
+                                       Text="{Binding Email}"
+                                       FontSize="14"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+
+                                    <HorizontalStackLayout Grid.Column="4"
+                                                       Spacing="10"
+                                                       HorizontalOptions="CenterAndExpand"
+                                                       VerticalOptions="End"
+                                                       Margin="0,5" Padding="0,0,0,5">
+                                        <ImageButton Source="assets/eye.png"
+                                                 HeightRequest="4"
+                                                 WidthRequest="4"
+                                                 Clicked="OnViewButtonClicked"
+                                                 CommandParameter="{Binding Id}"
+                                                 Padding="3"/>
+                                        <ImageButton Source="assets/edit.png"
+                                                 HeightRequest="4"
+                                                 WidthRequest="4"
+                                                 Clicked="OnEditButtonClicked"
+                                                 CommandParameter="{Binding Id}"
+                                                 Padding="3"/>
+                                        <ImageButton Source="assets/trash.png"
+                                                 HeightRequest="4"
+                                                 WidthRequest="4"
+                                                 Clicked="OnDeleteButtonClicked"
+                                                 CommandParameter="{Binding Id}"
+                                                 Padding="3"/>
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+                <!-- Pagination Controls -->
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                       Spacing="20"
+                                       Margin="0,20,0,0">
+                        <Button x:Name="PreviousButton"
+                            Text="Previous"
+                            Clicked="PreviousButton_Clicked"
+                            BackgroundColor="#63CF6C"
+                            TextColor="White"
+                            CornerRadius="5"
+                            Padding="10,5" WidthRequest="120"/>
+
+                        <Label x:Name="PageInfo"
+                           VerticalOptions="Center"
+                           FontSize="16"
+                           Text="Page 1 of 1"/>
+
+                    <Label x:Name="IsEmptyPageInfo"
+                           VerticalOptions="Center"
+                           FontSize="16"
+                         />
+
+                    <Button x:Name="NextButton"
+                            Text="Next"
+                            Clicked="NextButton_Clicked"
+                            BackgroundColor="#63CF6C"
+                            TextColor="White"
+                            CornerRadius="5"
+                            Padding="10,5" WidthRequest="120"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+          
+        </ScrollView>
+    </ContentPage.Content>
+
+</ContentPage>
