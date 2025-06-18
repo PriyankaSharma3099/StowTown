@@ -1,6 +1,8 @@
 using Microsoft.Maui.ApplicationModel.Communication;
 using StowTown.HelperService;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
 using StowTown.Models;
 using StowTown.Pages.ArtistsManagements;
 using StowTown.Pages.CallHistory;
@@ -20,6 +22,7 @@ namespace StowTown
 {
     public partial class AppShell : Shell
     {
+        private Dictionary<FlyoutItem, string> originalFlyoutItemTitles = new Dictionary<FlyoutItem, string>();
         private static string Email; // Declare 'email' variable  
         private string password; // Declare 'password' variable  
                                  // public UserInfoViewModel UserInfo { get; } = new UserInfoViewModel();
@@ -29,6 +32,9 @@ namespace StowTown
         {
             InitializeComponent();
             BindingContext = UserInfo;
+
+            // Store original titles
+            StoreOriginalFlyoutTitles();
 
             Dispatcher.Dispatch(async () =>
             {
@@ -166,6 +172,30 @@ namespace StowTown
                     ShellHelper.UpdateFlyoutItemTitle("ManualSongSpins", "Manual Spin Tracker", "assets/music.png");
                     break;
             }
+        }
+
+        private void StoreOriginalFlyoutTitles()
+        {
+            originalFlyoutItemTitles.Clear(); // Clear if it were ever called multiple times, though unlikely for constructor
+            foreach (var item in this.Items.OfType<FlyoutItem>())
+            {
+                if (item != null && !string.IsNullOrEmpty(item.Title))
+                {
+                    originalFlyoutItemTitles[item] = item.Title;
+                    Debug.WriteLine($"Stored original title for FlyoutItem: '{item.Title}'");
+                }
+            }
+            // Also handle ShellContent items that act as flyout items if they are not FlyoutItem typed but have titles
+            // For this specific app structure, FlyoutItems are explicitly defined.
+            // The "Call History" item is a FlyoutItem without a route. This loop should catch it.
+        }
+
+        public Dictionary<FlyoutItem, string> GetOriginalFlyoutItemTitles()
+        {
+            // Ensure it's populated if called before constructor fully finishes or if items change (though not expected here)
+            // For safety, could call StoreOriginalFlyoutTitles() here if originalFlyoutItemTitles is empty,
+            // but for this plan, constructor population should be sufficient.
+            return new Dictionary<FlyoutItem, string>(originalFlyoutItemTitles); // Return a copy
         }
     
 

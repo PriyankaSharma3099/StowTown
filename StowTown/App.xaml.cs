@@ -1,6 +1,8 @@
 ﻿using Microsoft.Maui.Controls;
 using StowTown;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace StowTown
 {
@@ -45,25 +47,46 @@ namespace StowTown
 
         private void OnWindowActivated(object sender, EventArgs e)
         {
-            Debug.WriteLine("Window Activated event fired. Attempting to refresh AppShell layout via Padding.");
+            Debug.WriteLine("Window Activated event fired. Attempting to refresh FlyoutItem titles directly.");
 
-            // Ensure execution on the main UI thread.
-            // While Activated event should be on UI thread, explicit dispatching is safer for UI manipulations.
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 if (Application.Current?.MainPage is AppShell appShell)
                 {
-                    var originalPadding = appShell.Padding;
-                    // Apply a tiny, likely imperceptible change to Padding to trigger a layout update.
-                    // Adding to Left; any component or a new Thickness object would work.
-                    appShell.Padding = new Thickness(originalPadding.Left + 0.001, originalPadding.Top, originalPadding.Right, originalPadding.Bottom);
-                    // Immediately revert to the original padding.
-                    appShell.Padding = originalPadding;
-                    Debug.WriteLine("AppShell.Padding temporarily modified and reverted to trigger UI refresh.");
+                    Dictionary<FlyoutItem, string> originalTitles = appShell.GetOriginalFlyoutItemTitles();
+                    if (originalTitles.Count == 0)
+                    {
+                        Debug.WriteLine("No original FlyoutItem titles were retrieved from AppShell.");
+                    }
+
+                    bool refreshedAny = false;
+                    foreach (var flyoutItemPair in originalTitles)
+                    {
+                        FlyoutItem flyoutItem = flyoutItemPair.Key;
+                        string originalTitle = flyoutItemPair.Value;
+
+                        if (flyoutItem != null)
+                        {
+                            string tempTitle = originalTitle + " "; // Add a space
+                            flyoutItem.Title = tempTitle;    // Force a change
+                            flyoutItem.Title = originalTitle; // Change it back to original
+                            Debug.WriteLine($"Refreshed title for FlyoutItem linked to original: '{originalTitle}'");
+                            refreshedAny = true;
+                        }
+                    }
+
+                    if (refreshedAny)
+                    {
+                        Debug.WriteLine("Finished attempt to refresh FlyoutItem titles.");
+                    }
+                    else if (originalTitles.Any()) // Original titles were found, but items were null (unlikely)
+                    {
+                         Debug.WriteLine("Original titles found, but corresponding FlyoutItems were null during refresh attempt.");
+                    }
                 }
                 else
                 {
-                    Debug.WriteLine("AppShell instance not found on MainPage for Padding modification.");
+                    Debug.WriteLine("AppShell instance not found on MainPage for title refresh.");
                 }
             });
         }
