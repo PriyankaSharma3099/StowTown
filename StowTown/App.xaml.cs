@@ -39,29 +39,28 @@ namespace StowTown
             Window window = base.CreateWindow(activationState);
 
             window.Activated += OnWindowActivated;
-            // Optionally, you can also subscribe to Deactivated if needed for logging or other logic
-            // window.Deactivated += OnWindowDeactivated;
 
             return window;
         }
 
         private void OnWindowActivated(object sender, EventArgs e)
         {
-            Debug.WriteLine("Window Activated event fired.");
-            if (Application.Current?.MainPage is AppShell appShell)
-            {
-                appShell.RefreshAllFlyoutTitles();
-            }
-            else
-            {
-                Debug.WriteLine("AppShell instance not found on MainPage for refreshing titles.");
-            }
-        }
+            Debug.WriteLine("Window Activated event fired. Attempting to invalidate AppShell measure.");
 
-        // Optional: Handler for Deactivated event if you added it
-        // private void OnWindowDeactivated(object sender, EventArgs e)
-        // {
-        //     Debug.WriteLine("Window Deactivated event fired.");
-        // }
+            // Ensure execution on the main UI thread.
+            // While Activated event should be on UI thread, explicit dispatching is safer for UI manipulations.
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                if (Application.Current?.MainPage is AppShell appShell)
+                {
+                    appShell.InvalidateMeasure();
+                    Debug.WriteLine("AppShell.InvalidateMeasure() called.");
+                }
+                else
+                {
+                    Debug.WriteLine("AppShell instance not found on MainPage for InvalidateMeasure.");
+                }
+            });
+        }
     }
 }
