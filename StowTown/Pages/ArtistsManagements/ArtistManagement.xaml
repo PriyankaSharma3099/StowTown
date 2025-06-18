@@ -5,11 +5,12 @@
              Title="" BackgroundColor="#E5EFEE">
 
     <ContentPage.Content>
-        <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always" VerticalScrollBarVisibility="Always">
-            <VerticalStackLayout >
-                <Grid RowDefinitions="Auto,*,Auto">
-                    <Grid Grid.Row="0"  ColumnDefinitions="*,Auto">
-                        <Label Text="Artist Management"
+        <Grid> <!-- New Grid -->
+            <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always" VerticalScrollBarVisibility="Always">
+                <VerticalStackLayout >
+                    <Grid RowDefinitions="Auto,*,Auto">
+                        <Grid Grid.Row="0"  ColumnDefinitions="*,Auto">
+                            <Label Text="Artist Management"
  FontSize="26"
  FontAttributes="Bold"
  VerticalOptions="Center"
@@ -199,5 +200,15 @@
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>
+
+            <ActivityIndicator x:Name="artistLoader"
+                               IsRunning="False"
+                               IsVisible="False"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               Color="Black"
+                               HeightRequest="50"
+                               WidthRequest="50"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
