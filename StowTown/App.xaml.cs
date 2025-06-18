@@ -45,7 +45,7 @@ namespace StowTown
 
         private void OnWindowActivated(object sender, EventArgs e)
         {
-            Debug.WriteLine("Window Activated event fired. Attempting to invalidate AppShell measure.");
+            Debug.WriteLine("Window Activated event fired. Attempting to refresh AppShell layout via Padding.");
 
             // Ensure execution on the main UI thread.
             // While Activated event should be on UI thread, explicit dispatching is safer for UI manipulations.
@@ -53,12 +53,17 @@ namespace StowTown
             {
                 if (Application.Current?.MainPage is AppShell appShell)
                 {
-                    appShell.InvalidateMeasure();
-                    Debug.WriteLine("AppShell.InvalidateMeasure() called.");
+                    var originalPadding = appShell.Padding;
+                    // Apply a tiny, likely imperceptible change to Padding to trigger a layout update.
+                    // Adding to Left; any component or a new Thickness object would work.
+                    appShell.Padding = new Thickness(originalPadding.Left + 0.001, originalPadding.Top, originalPadding.Right, originalPadding.Bottom);
+                    // Immediately revert to the original padding.
+                    appShell.Padding = originalPadding;
+                    Debug.WriteLine("AppShell.Padding temporarily modified and reverted to trigger UI refresh.");
                 }
                 else
                 {
-                    Debug.WriteLine("AppShell instance not found on MainPage for InvalidateMeasure.");
+                    Debug.WriteLine("AppShell instance not found on MainPage for Padding modification.");
                 }
             });
         }
