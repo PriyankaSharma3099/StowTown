@@ -167,22 +167,6 @@ namespace StowTown
                     break;
             }
         }
-
-        public void RefreshAllFlyoutTitles()
-        {
-            Debug.WriteLine("AppShell.RefreshAllFlyoutTitles called due to window activation.");
-            ShellHelper.UpdateFlyoutItemTitle("HomeDashboard", "Home", "assets/Home.png");
-            ShellHelper.UpdateFlyoutItemTitle("RadioStationManagement", "Radio Station", "assets/music.png");
-            ShellHelper.UpdateFlyoutItemTitle("DjManagement", "Dj", "assets/headphones.png");
-            ShellHelper.UpdateFlyoutItemTitle("ArtistManagement", "Artist", "assets/user.png");
-            ShellHelper.UpdateFlyoutItemTitle("Graph", "Reporting", "assets/Icons.png");
-            // Note: "Call History" FlyoutItem has no route, so it cannot be refreshed by ShellHelper.UpdateFlyoutItemTitle.
-            ShellHelper.UpdateFlyoutItemTitle("SongManagement", "Song List", "assets/music.png");
-            ShellHelper.UpdateFlyoutItemTitle("MonthlySongManagement", "Monthly Song List", "assets/filemusic.png");
-            ShellHelper.UpdateFlyoutItemTitle("CallScheduleList", "Call Schedule", "assets/Icons.png");
-            ShellHelper.UpdateFlyoutItemTitle("PojectProducerManagement", "Producer", "assets/radio.png");
-            ShellHelper.UpdateFlyoutItemTitle("ManualSongSpins", "Manual Spin Tracker", "assets/music.png");
-        }
     
 
     }
